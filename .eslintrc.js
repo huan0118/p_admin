@@ -1,16 +1,21 @@
 module.exports = {
   root: true,
+
   env: {
     node: true
   },
+
   extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
+
   parserOptions: {
     parser: "babel-eslint"
   },
+
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
+    "no-console": "off",
+    "no-debugger": "off"
   },
+
   overrides: [
     {
       files: [
@@ -21,5 +26,11 @@ module.exports = {
         jest: true
       }
     }
+  ],
+
+  extends: [
+    "plugin:vue/strongly-recommended",
+    "eslint:recommended",
+    "@vue/prettier"
   ]
 };
