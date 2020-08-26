@@ -1,29 +1,14 @@
 # power_admin
 
-## Project setup
-```
-yarn install
-```
+## 1 step
+    设计权限数据
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+        tree
+            
+            角色不同导航
 
-### Compiles and minifies for production
-```
-yarn build
-```
+            岗位不同操作权限
 
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

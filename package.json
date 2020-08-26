@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "chalk": "^4.1.0",
+    "chokidar": "^3.4.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.20",
+    "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.1.0",
