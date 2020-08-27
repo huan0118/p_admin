@@ -7,19 +7,20 @@
         <code v-text="'<el-button>'"></code>
         below
       </p>
-      <el-button>el-button</el-button>
+      <el-button @click="hanldeClick">el-button</el-button>
     </div>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import { getRoles } from "@/api/role";
 export default {
   name: "App",
-  components: {
-    HelloWorld
+  components: {},
+  methods: {
+    hanldeClick() {
+      getRoles();
+    }
   }
 };
 </script>
