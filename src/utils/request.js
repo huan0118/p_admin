@@ -1,8 +1,6 @@
 import axios from "axios";
 import { MessageBox, Notification } from "element-ui";
 import store from "@/store";
-import { signPrams } from "@/utils/index";
-import qs from "qs";
 
 axios.defaults.withCredentials = false;
 // create an axios instance
@@ -19,30 +17,10 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers["Certificate"] = store.getters.token;
     }
-
-    // if (store.getters.Certificate) {
-    //   config.headers['Certificate'] = store.getters.Certificate
-    // }
-
     // 处理sign
-    if (config.data) {
-      config.data = signPrams(config.data);
-    }
-    if (
-      config.headers["Content-Type"] === "application/x-www-form-urlencoded"
-    ) {
-      config.transformRequest = [
-        function(data) {
-          // from submit
-          let obj = {};
-          obj.params = JSON.stringify(data);
-          console.log(data);
-
-          obj = qs.stringify(obj);
-          return obj;
-        }
-      ];
-    }
+    // if (config.data) {
+    //   config.data = signPrams(config.data);
+    // }
     return config;
   },
   error => {
@@ -67,7 +45,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     // if the custom code is not 200, it is judged as an error.
-    if (res.status !== "S") {
+    if (res.code !== 20000) {
       // 401: Illegal token;
       if (+res.code === 401) {
         // to re-login
@@ -98,31 +76,14 @@ service.interceptors.response.use(
   },
   error => {
     console.log("err" + error); // for debug
-    if (error.response && error.response.code === 401) {
-      // to re-login
-      MessageBox.confirm("您的登入信息已失效", "是否注销", {
-        confirmButtonText: "重新登入",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          store.dispatch("user/resetToken").then(() => {
-            location.reload();
-          });
-        })
-        .catch(err => {
-          console.warn(err);
-        });
-    } else {
-      try {
-        Notification({
-          message: error.message || "服务繁忙",
-          type: "error",
-          duration: 0
-        });
-      } catch (error) {
-        console.warn(error);
-      }
+    try {
+      Notification({
+        message: error.message || "服务繁忙",
+        type: "error",
+        duration: 0
+      });
+    } catch (error) {
+      console.warn(error);
     }
 
     return Promise.reject(error);
