@@ -1,31 +1,49 @@
 /* eslint-disable no-unused-vars */
 const Mock = require("mockjs");
 const { deepClone } = require("../utils");
-const { treeRoutes, Buttons } = require("./routes.js");
+const { treeRoutes } = require("./routes.js");
 
 const routes = deepClone(treeRoutes);
+// let map = [];
+// function flat(arr, num, res = []) {
+//   for (let index = 0; index < arr.length; index++) {
+//     const element = arr[index];
+//     if (index !== num) {
+//       res.push(element);
+//     }
+//   }
+//   map.push(res);
+//   num--;
+//   if (num < 0) {
+//     return;
+//   } else {
+//     flat(arr, num);
+//   }
+// }
+// flat(Buttons, 3);
+// console.log(map);
 
-function set(routes) {
-  for (const iterator of routes) {
-    if (iterator.authority && !iterator.authority.length) {
-      iterator.authority = Mock.mock({
-        "array|1-3": [
-          {
-            responsibilityCode: `Code-${Mock.mock("@id()")}`,
-            responsibilityId: Mock.mock("@id()"),
-            Buttons: Buttons.slice(Mock.mock("@integer(0, 3)"))
-          }
-        ]
-      });
-      console.log(iterator.menuName);
-    }
-    if (iterator.children && iterator.children.length) {
-      set(iterator.children);
-    }
-  }
-}
+// function set(routes) {
+//   for (const iterator of routes) {
+//     if (iterator.authority && !iterator.authority.length) {
+//       iterator.authority = Mock.mock({
+//         "array|1-3": [
+//           {
+//             responsibilityCode: `Code-${Mock.mock("@id()")}`,
+//             responsibilityId: Mock.mock("@id()"),
+//             Buttons: Buttons.slice(Mock.mock("@integer(0, 3)"))
+//           }
+//         ]
+//       });
+//       console.log(iterator.menuName);
+//     }
+//     if (iterator.children && iterator.children.length) {
+//       set(iterator.children);
+//     }
+//   }
+// }
 
-set(routes);
+// set(routes);
 // const roles = [
 //   {
 //     key: "admin",
@@ -59,13 +77,32 @@ set(routes);
 //     ]
 //   }
 // ];
+function rolesFilter(query, treeRoutes) {
+  let res = null;
+  for (const iterator of treeRoutes) {
+    if (iterator.authority) {
+      for (const item of iterator.authority) {
+        if (item.responsibilityId === +query.responsibilityId) {
+          console.log(item);
+          return item;
+        }
+      }
+    } else {
+      if (iterator.children) {
+        res = rolesFilter(query, iterator.children);
+      }
+    }
+  }
+  return res;
+}
 
 module.exports = [
   // mock get all routes form server
   {
-    url: "/vue-element-admin/routes",
+    url: "/power-admin/routes",
     type: "get",
     response: _ => {
+      console.log(_);
       return {
         code: 20000,
         data: routes
@@ -74,19 +111,21 @@ module.exports = [
   },
   // mock get all roles form server
   {
-    url: "/vue-element-admin/roles",
+    url: "/power-admin/query/roles",
     type: "get",
     response: _ => {
+      console.log(_.query);
+      let res = rolesFilter(_.query, deepClone(treeRoutes));
       return {
         code: 20000,
-        data: routes
+        data: res
       };
     }
   },
 
   // add role
   {
-    url: "/vue-element-admin/role",
+    url: "/power-admin/role",
     type: "post",
     response: {
       code: 20000,
@@ -98,7 +137,7 @@ module.exports = [
 
   // update role
   {
-    url: "/vue-element-admin/role/[A-Za-z0-9]",
+    url: "/power-admin/role/[A-Za-z0-9]",
     type: "put",
     response: {
       code: 20000,
@@ -110,7 +149,7 @@ module.exports = [
 
   // delete role
   {
-    url: "/vue-element-admin/role/[A-Za-z0-9]",
+    url: "/power-admin/role/[A-Za-z0-9]",
     type: "delete",
     response: {
       code: 20000,

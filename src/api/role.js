@@ -2,21 +2,24 @@ import request from "@/utils/request";
 
 export function getRoutes() {
   return request({
-    url: "/vue-element-admin/routes",
-    method: "get"
+    url: "/power-admin/query/roles",
+    method: "get",
+    params: {
+      responsibilityId: 12
+    }
   });
 }
 
 export function getRoles() {
   return request({
-    url: "/vue-element-admin/roles",
+    url: "/power-admin/roles",
     method: "get"
   });
 }
 
 export function addRole(data) {
   return request({
-    url: "/vue-element-admin/role",
+    url: "/power-admin/role",
     method: "post",
     data
   });
@@ -24,7 +27,7 @@ export function addRole(data) {
 
 export function updateRole(id, data) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
+    url: `/power-admin/role/${id}`,
     method: "put",
     data
   });
@@ -32,7 +35,7 @@ export function updateRole(id, data) {
 
 export function deleteRole(id) {
   return request({
-    url: `/vue-element-admin/role/${id}`,
+    url: `/power-admin/role/${id}`,
     method: "delete"
   });
 }

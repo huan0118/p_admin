@@ -17,10 +17,6 @@ service.interceptors.request.use(
     if (store.getters.token) {
       config.headers["Certificate"] = store.getters.token;
     }
-    // 处理sign
-    // if (config.data) {
-    //   config.data = signPrams(config.data);
-    // }
     return config;
   },
   error => {

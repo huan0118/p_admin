@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import { getRoles } from "@/api/role";
+import { getRoutes } from "@/api/role";
 export default {
   name: "App",
   components: {},
   methods: {
     hanldeClick() {
-      getRoles();
+      getRoutes();
     }
   }
 };
