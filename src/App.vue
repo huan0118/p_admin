@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" />
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button @click="hanldeClick">el-button</el-button>
-    </div>
+    <el-container>
+      <el-header height="50px">Header</el-header>
+      <el-container>
+        <el-aside width="200px">Aside</el-aside>
+        <el-main>
+          <router-view class="warp" />
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -25,13 +25,4 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
