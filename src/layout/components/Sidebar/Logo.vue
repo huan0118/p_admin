@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      title: "某某商家端管理后台",
+      title: "p_templet",
       logo: ""
     };
   }

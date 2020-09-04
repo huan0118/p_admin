@@ -31,7 +31,7 @@ export function removeSpaces(data) {
   const obj = {};
 
   for (const key in data) {
-    if (data.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(data, key)) {
       obj[key] = !isnu(data[key]) ? String(data[key]).replace(/\s+/g, "") : "";
     }
   }
