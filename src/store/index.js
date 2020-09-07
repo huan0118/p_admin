@@ -6,7 +6,6 @@ import createLogger from "vuex/dist/logger";
 
 let modules = require.context("./modules", false, /\.js$/);
 
-console.log(modules.keys()); // ["./home.js"] 返回一个数组
 let obj = Object.create(null);
 
 /**
@@ -15,7 +14,6 @@ let obj = Object.create(null);
 modules.keys().forEach(key => {
   obj[key.replace(/(.*\/)*([^.]+).*/gi, "$2")] = modules(key).default;
 });
-console.log(obj, "configRouters");
 Vue.use(Vuex);
 
 export default new Vuex.Store({

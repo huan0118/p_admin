@@ -5,15 +5,9 @@
 </template>
 
 <script>
-import { getRoutes } from "@/api/role";
 export default {
   name: "App",
-  components: {},
-  methods: {
-    hanldeClick() {
-      getRoutes();
-    }
-  }
+  components: {}
 };
 </script>
 

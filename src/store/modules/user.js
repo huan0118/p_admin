@@ -7,7 +7,7 @@ const state = {
   token: getToken(),
   name: "",
   avatar: "",
-  ids: [123]
+  ids: []
 };
 
 const mutations = {

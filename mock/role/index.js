@@ -102,7 +102,6 @@ module.exports = [
     url: "/power-admin/routes",
     type: "get",
     response: _ => {
-      console.log(_);
       return {
         code: 20000,
         data: routes
@@ -114,7 +113,7 @@ module.exports = [
     url: "/power-admin/query/roles",
     type: "get",
     response: _ => {
-      console.log(_.query);
+      // console.log(_.query);
       let res = rolesFilter(_.query, deepClone(treeRoutes));
       return {
         code: 20000,

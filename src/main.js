@@ -4,8 +4,12 @@ import { router } from "./router";
 import store from "./store";
 import "./plugins/element.js";
 
+import "@/assets/iconfont"; // font
+
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 import "@/styles/index.scss"; // global css
+
+import "./permission";
 
 Vue.config.productionTip = false;
 

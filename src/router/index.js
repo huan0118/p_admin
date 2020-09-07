@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import layout from "../layout/index";
+import login from "@/views/login/index";
 
 Vue.use(VueRouter);
 /**
@@ -20,9 +21,14 @@ export const constantRoutes = [
         path: "",
         name: "About",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/About.vue")
+          import(/* webpackChunkName: "Home" */ "../views/Home.vue")
       }
     ]
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: login
   }
 ];
 

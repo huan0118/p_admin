@@ -1,4 +1,4 @@
-import router from "./router";
+import { router } from "./router";
 import store from "./store";
 import { Message } from "element-ui";
 import NProgress from "nprogress"; // progress bar
@@ -21,15 +21,6 @@ router.beforeEach(async (to, from, next) => {
   const hasToken = getToken();
   // console.log(hasToken, 'hasToken', to)
   if (hasToken) {
-    // 初始化数据字典
-    if (!store.getters.dictionaryData.length) {
-      try {
-        await store.dispatch("dictionary/addDictionaryData");
-      } catch (error) {
-        console.warn(error);
-        Message.error("数据字典初始化失败！请刷新重试");
-      }
-    }
     if (to.path === "/login") {
       // if is logged in, redirect to the home page
       next({ path: "/" });
