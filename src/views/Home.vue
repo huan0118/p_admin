@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" @click="handleClick">
     首页
   </div>
 </template>
@@ -8,7 +8,12 @@
 // @ is an alias to /src
 
 export default {
-  name: "Login",
-  components: {}
+  name: "Index",
+  components: {},
+  methods: {
+    handleClick() {
+      console.log(this.$router.resolve());
+    }
+  }
 };
 </script>

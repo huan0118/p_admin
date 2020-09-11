@@ -50,7 +50,7 @@ import path from "path";
 import { isExternal } from "@/utils/validate";
 import Item from "./Item";
 // import AppLink from './Link'
-import RLink from "./Link";
+import RLink from "./Rlink";
 import FixiOSBug from "./FixiOSBug";
 
 export default {

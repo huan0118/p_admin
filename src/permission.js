@@ -35,14 +35,15 @@ router.beforeEach(async (to, from, next) => {
         try {
           // get user info
           // note: ids must be a object array! tree ids
-          const list = await store.dispatch("user/getInfo");
+          const assemble = await store.dispatch("user/getInfo");
           // generate accessible routes map based on ids
           const accessRoutes = await store.dispatch(
             "permission/generateRoutes",
-            list
+            assemble
           );
 
           // dynamically add accessible routes
+          console.log(router, "router");
           router.addRoutes(accessRoutes);
 
           // hack method to ensure that addRoutes is complete
@@ -54,7 +55,15 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch("user/resetToken");
           Message.error("权限初始化失败");
           try {
-            next(`/login?redirect=${to.path}`);
+            if (whiteList.indexOf(from.path) !== -1) {
+              next(false);
+            } else {
+              next({
+                path: "/login",
+                replace: true,
+                query: { redirect: to.path }
+              });
+            }
           } catch (err) {
             console.log("redirect", err);
           }

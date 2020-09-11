@@ -103,12 +103,13 @@ export default {
       let data = removeSpaces({
         userName: this.loginForm.username,
         pwd: this.loginForm.password,
-        want_except: "pwd",
-        domain: "https://192.168.195.121"
+        want_except: "pwd"
       });
       try {
         await this.$store.dispatch("user/login", data);
-        await this.$router.push({ path: this.redirect || "/dashboard" });
+        await this.$router.push({ path: this.redirect || "/" });
+        const a = this.$router.forward();
+        console.log(a);
         this.loading = false;
       } catch (error) {
         this.loading = false;

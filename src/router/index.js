@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import layout from "../layout/index";
 import login from "@/views/login/index";
+import errPage from "@/views/error-page/404";
 
 Vue.use(VueRouter);
 /**
@@ -13,22 +14,14 @@ Vue.use(VueRouter);
 
 export const constantRoutes = [
   {
-    path: "/",
-    name: "Home",
-    component: layout,
-    children: [
-      {
-        path: "",
-        name: "About",
-        component: () =>
-          import(/* webpackChunkName: "Home" */ "../views/Home.vue")
-      }
-    ]
-  },
-  {
     path: "/login",
     name: "Login",
     component: login
+  },
+  {
+    path: "/404",
+    name: "ErrPage",
+    component: errPage
   }
 ];
 
@@ -36,7 +29,34 @@ export const constantRoutes = [
 //   routes
 // });
 
-export const asyncRoutes = [];
+export const asyncRoutes = [
+  {
+    path: "/",
+    name: "Home",
+    component: layout,
+    children: [
+      {
+        path: "",
+        name: "Index",
+        meta: {
+          Identification: 3000
+        },
+        component: () =>
+          import(/* webpackChunkName: "Home" */ "../views/Home.vue")
+      },
+      {
+        path: "/about",
+        name: "About",
+        meta: {
+          Identification: 2000
+        },
+        component: () =>
+          import(/* webpackChunkName: "About" */ "../views/About.vue")
+      }
+    ]
+  },
+  { path: "*", redirect: "/404", hidden: true }
+];
 
 const createRouter = () =>
   new VueRouter({

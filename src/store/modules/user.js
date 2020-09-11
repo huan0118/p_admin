@@ -1,13 +1,14 @@
 import { login, logout, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
-import { resetRouter } from "@/router";
+import { resetRouter, asyncRoutes } from "@/router";
 import { flat, flatObject, isDefstr } from "@/utils/index";
-
+import _ from "lodash";
 const state = {
   token: getToken(),
   name: "",
   avatar: "",
-  ids: []
+  ids: [],
+  NAVIGATION: [] //导航数据
 };
 
 const mutations = {
@@ -22,6 +23,9 @@ const mutations = {
   },
   SET_ROLE_IDS: (state, ids) => {
     state.ids = ids;
+  },
+  SET_NAVIGATION: (state, payload) => {
+    state.NAVIGATION = payload;
   }
 };
 
@@ -57,12 +61,16 @@ const actions = {
             reject(new Error("验证失败, 请重新登入"));
             return;
           }
-          const ids = Object.freeze(
-            flat(data, "menuId")
-              .map(e => Number(e))
-              .sort()
-          );
-          const map = Object.freeze(flatObject(data));
+          const nav = flat(data, "menuId")
+            .map(e => +e)
+            .sort();
+          const webs = flat(asyncRoutes, "meta.Identification")
+            .map(e => +e.meta.Identification)
+            .sort();
+          // 交集
+          const ids = _.intersection(nav, webs);
+
+          const map = flatObject(data);
           // ids must be a non-empty array
           if (!ids || ids.length <= 0) {
             reject(new Error("getInfo: ids must be a non-null array!"));
@@ -70,7 +78,8 @@ const actions = {
           }
 
           commit("SET_ROLE_IDS", ids);
-          resolve({ ids, map });
+          commit("SET_NAVIGATION", Object.freeze(data));
+          resolve(Object.freeze({ ids, map }));
         })
         .catch(error => {
           reject(error);

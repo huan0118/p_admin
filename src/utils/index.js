@@ -199,6 +199,9 @@ export function param2Obj(url) {
  */
 
 export function flat(arr, key) {
+  if (!key) {
+    return;
+  }
   const res = [];
   for (const item of arr) {
     if (item.children) {
