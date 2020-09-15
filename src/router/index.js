@@ -25,10 +25,6 @@ export const constantRoutes = [
   }
 ];
 
-// const router = new VueRouter({
-//   routes
-// });
-
 export const asyncRoutes = [
   {
     path: "/",
@@ -38,18 +34,16 @@ export const asyncRoutes = [
       {
         path: "",
         name: "Index",
-        meta: {
-          Identification: 3000
-        },
+        meta: {},
+        Identification: 3000,
         component: () =>
           import(/* webpackChunkName: "Home" */ "../views/Home.vue")
       },
       {
         path: "/about",
         name: "About",
-        meta: {
-          Identification: 2000
-        },
+        meta: {},
+        Identification: 2000,
         component: () =>
           import(/* webpackChunkName: "About" */ "../views/About.vue")
       }

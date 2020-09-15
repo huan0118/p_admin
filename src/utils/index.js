@@ -207,7 +207,7 @@ export function flat(arr, key) {
     if (item.children) {
       res.push(...flat(item.children, key));
     }
-    res.push(item[key]);
+    item[key] && res.push(item[key]);
   }
 
   return res;

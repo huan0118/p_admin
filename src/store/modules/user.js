@@ -64,8 +64,8 @@ const actions = {
           const nav = flat(data, "menuId")
             .map(e => +e)
             .sort();
-          const webs = flat(asyncRoutes, "meta.Identification")
-            .map(e => +e.meta.Identification)
+          const webs = flat(asyncRoutes, "Identification")
+            .map(e => +e.Identification)
             .sort();
           // 交集
           const ids = _.intersection(nav, webs);

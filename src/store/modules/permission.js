@@ -9,7 +9,7 @@ import { asyncRoutes, constantRoutes } from "@/router";
 function hasDetection(ids, route, map) {
   if (route.meta && route.meta.Identification) {
     for (const item of map) {
-      if (+item.menuId === +route.meta.Identification) {
+      if (+item.menuId === +route.Identification) {
         if (item.icon) {
           route.meta.icon = item.icon;
         }
