@@ -65,7 +65,7 @@ const actions = {
             .map(e => +e)
             .sort();
           const webs = flat(asyncRoutes, "Identification")
-            .map(e => +e.Identification)
+            .map(e => +e)
             .sort();
           // 交集
           const ids = _.intersection(nav, webs);

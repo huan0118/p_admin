@@ -44,9 +44,6 @@ export function removeSpaces(data) {
  * @returns {object} tree
  */
 export function removeTreeitem(data, pid) {
-  // const obj = {}
-  // console.log(data, pid)
-
   for (let i = 0; i < data.length; i++) {
     if (data[i].id === pid) {
       data.splice(i, 1);

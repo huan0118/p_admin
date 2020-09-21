@@ -2,6 +2,7 @@
 import md5 from "js-md5";
 import Base64 from "crypto-js/enc-base64";
 import Utf8 from "crypto-js/enc-utf8";
+import _ from "lodash";
 export function isUndef(v) {
   return v === undefined || v === null;
 }
@@ -212,14 +213,15 @@ export function flat(arr, key) {
 
   return res;
 }
-export function flatObject(Arr) {
+export function flatObject(array) {
   const res = [];
-  for (let i = 0; i < Arr.length; i++) {
-    if (Arr[i].children) {
-      res.push(...flatObject(Arr[i].children));
-      delete Arr[i].children;
+  for (let i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i].children)) {
+      res.push(...flatObject(array[i].children));
     }
-    res.push(Arr[i]);
+    let item = _.cloneDeep(array[i]);
+    delete item.children;
+    res.push(item);
   }
 
   return res;
