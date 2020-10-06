@@ -1,5 +1,5 @@
 import { asyncRoutes, constantRoutes } from "@/router";
-
+// import _ from "lodash";
 /**
  * 检测路由id 匹配路由数据 ids后端返回权限id列表
  * @param ids
@@ -50,13 +50,19 @@ export function exfilterAsyncRoutes(routes, ids, map) {
 
 const state = {
   routes: [],
-  addRoutes: []
+  addRoutes: [],
+  map: new Map()
 };
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = Object.freeze(routes);
     state.routes = Object.freeze(constantRoutes.concat(routes));
+  },
+  SET_MAP: (state, palyload) => {
+    for (const item of palyload) {
+      state.map.set(item.menuId, item);
+    }
   }
 };
 
@@ -65,6 +71,7 @@ const actions = {
     return new Promise(resolve => {
       const accessedRoutes = exfilterAsyncRoutes(asyncRoutes, ids, map);
       commit("SET_ROUTES", accessedRoutes);
+      commit("SET_MAP", map);
       resolve(accessedRoutes);
     });
   }
