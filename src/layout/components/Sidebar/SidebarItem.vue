@@ -38,7 +38,7 @@
         :key="child.path"
         :is-nest="true"
         :item="child"
-        :base-path="resolvePath(child.path)"
+        :base-menu-id="route.menuId"
         class="nest-menu"
       />
     </el-submenu>
@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import path from "path";
-import { isExternal } from "@/utils/validate";
+// import path from "path";
+// import { isExternal } from "@/utils/validate";
 import Item from "./Item";
 // import AppLink from './Link'
 import RLink from "./Rlink";
@@ -67,8 +67,8 @@ export default {
       type: Boolean,
       default: false
     },
-    basePath: {
-      type: String,
+    baseMenuId: {
+      type: [String, Number],
       default: ""
     }
   },
@@ -108,13 +108,15 @@ export default {
       return false;
     },
     resolvePath(routePath) {
-      if (isExternal(routePath)) {
-        return routePath;
-      }
-      if (isExternal(this.basePath)) {
-        return this.basePath;
-      }
-      return path.resolve(this.basePath, routePath);
+      // if (isExternal(routePath)) {
+      //   return routePath;
+      // }
+      // if (isExternal(this.basePath)) {
+      //   return this.basePath;
+      // }
+      // return path.resolve(this.basePath, routePath);
+      console.log(routePath);
+      return 12;
     }
   }
 };

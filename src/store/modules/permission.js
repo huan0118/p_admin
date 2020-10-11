@@ -6,26 +6,55 @@ import { asyncRoutes, constantRoutes } from "@/router";
  * @param route
  */
 
-function hasDetection(ids, route, map) {
-  if (route.meta && route.meta.Identification) {
-    for (const item of map) {
-      if (+item.menuId === +route.Identification) {
-        if (item.icon) {
-          route.meta.icon = item.icon;
-        }
-        if (item.menuName) {
-          route.meta.title = item.menuName;
-        }
-        route.meta.authority = item.authority ? item.authority : "no-authority";
-        route.hidden = +item.is_hidden === 1;
-      }
-    }
-    return ids.includes(route.meta.Identification);
+function hasDetection(ids, route) {
+  if (route.Identification) {
+    return ids.includes(route.Identification);
   } else {
-    return true;
+    return false;
   }
 }
+/**
+ * 注入路由权限等信息
+ * @param route asyncRoutes
+ * @param info 获取的信息
+ */
+function setAsyncRoutes(route, info) {
+  for (const item of info) {
+    if (+item.menuId === +route.Identification) {
+      if (item.icon) {
+        route.meta.icon = item.icon;
+      }
+      if (item.menuName) {
+        route.meta.title = item.menuName;
+      }
+      route.meta.authority = item.authority ? item.authority : "no-authority";
+      route.hidden = +item.is_hidden === 1;
+    }
+  }
+}
+/**
+ * 生成映射
+ * @param routes asyncRoutes
+ * @param ids
+ * @param map
+ */
+function filterAsyncMap(routes, ids, map, esMap = {}) {
+  routes.forEach(route => {
+    const tmp = { ...route };
+    if (hasDetection(ids, tmp)) {
+      for (const item of map) {
+        if (+item.menuId === +tmp.Identification) {
+          esMap[item.menuId] = { name: route.name, path: route.path };
+        }
+      }
+      if (tmp.children) {
+        filterAsyncMap(tmp.children, ids, map, esMap);
+      }
+    }
+  });
 
+  return esMap;
+}
 /**
  * 过滤路由
  * @param routes asyncRoutes
@@ -36,7 +65,8 @@ export function exfilterAsyncRoutes(routes, ids, map) {
   // console.log(routes, 'routes, ids, map')
   routes.forEach(route => {
     const tmp = { ...route };
-    if (hasDetection(ids, tmp, map)) {
+    if (hasDetection(ids, tmp)) {
+      setAsyncRoutes(tmp, map);
       if (tmp.children) {
         tmp.children = exfilterAsyncRoutes(tmp.children, ids, map);
         tmp.redirect = { name: tmp.children[0].name };
@@ -71,7 +101,9 @@ const actions = {
     return new Promise(resolve => {
       const accessedRoutes = exfilterAsyncRoutes(asyncRoutes, ids, map);
       commit("SET_ROUTES", accessedRoutes);
-      commit("SET_MAP", map);
+      console.log(accessedRoutes, "accessedRoutes");
+      const asyncMap = filterAsyncMap(asyncRoutes[0].children, ids, map);
+      console.log(asyncMap, "asyncMap");
       resolve(accessedRoutes);
     });
   }

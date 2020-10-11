@@ -14,9 +14,9 @@
       >
         <sidebar-item
           v-for="route in NAVIGATION"
-          :key="route.path"
+          :key="route.menuId"
           :item="route"
-          :base-path="route.path"
+          :base-menu-id="route.menuId"
         />
       </el-menu>
     </el-scrollbar>
