@@ -24,32 +24,32 @@ export const constantRoutes = [
     component: errPage
   }
 ];
+export const publicRoutes = {
+  path: "/",
+  name: "Home",
+  component: layout
+};
+
+export const NoVerificationRoutes = [
+  { path: "*", redirect: "/404", NoVerification: true, hidden: true }
+];
 
 export const asyncRoutes = [
   {
-    path: "/",
-    name: "Home",
-    component: layout,
-    children: [
-      {
-        path: "",
-        name: "Index",
-        meta: {},
-        Identification: 3000,
-        component: () =>
-          import(/* webpackChunkName: "Home" */ "../views/Home.vue")
-      },
-      {
-        path: "/about",
-        name: "About",
-        meta: {},
-        Identification: 2000,
-        component: () =>
-          import(/* webpackChunkName: "About" */ "../views/About.vue")
-      }
-    ]
+    path: "",
+    name: "Index",
+    meta: {},
+    Identification: 3000,
+    component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
   },
-  { path: "*", redirect: "/404", hidden: true }
+  {
+    path: "/about",
+    name: "About",
+    meta: {},
+    Identification: 2000,
+    component: () =>
+      import(/* webpackChunkName: "About" */ "../views/About.vue")
+  }
 ];
 
 const createRouter = () =>

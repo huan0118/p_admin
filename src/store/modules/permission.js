@@ -1,4 +1,9 @@
-import { asyncRoutes, constantRoutes } from "@/router";
+import {
+  asyncRoutes,
+  constantRoutes,
+  publicRoutes,
+  NoVerificationRoutes
+} from "@/router";
 // import _ from "lodash";
 /**
  * 检测路由id 匹配路由数据 ids后端返回权限id列表
@@ -101,10 +106,19 @@ const actions = {
     return new Promise(resolve => {
       const accessedRoutes = exfilterAsyncRoutes(asyncRoutes, ids, map);
       commit("SET_ROUTES", accessedRoutes);
-      console.log(accessedRoutes, "accessedRoutes");
-      const asyncMap = filterAsyncMap(asyncRoutes[0].children, ids, map);
+      console.log(
+        accessedRoutes,
+        "accessedRoutes",
+        publicRoutes,
+        NoVerificationRoutes
+      );
+      const asyncMap = filterAsyncMap(asyncRoutes, ids, map);
+      // Building a real routing information
       console.log(asyncMap, "asyncMap");
-      resolve(accessedRoutes);
+      publicRoutes.children = accessedRoutes;
+      const realRoutes = [publicRoutes, ...NoVerificationRoutes];
+      console.log(realRoutes);
+      resolve(realRoutes);
     });
   }
 };
