@@ -7,15 +7,12 @@
           !item.alwaysShow
       "
     >
-      <r-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+      <r-link v-if="onlyOneChild.menuId" :to="resolveLink(onlyOneChild)">
         <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
+          :index="resolvePath(onlyOneChild)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
         >
-          <item
-            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            :title="onlyOneChild.meta.title"
-          />
+          <item :title="onlyOneChild.menuName + '|' + onlyOneChild.menuId" />
         </el-menu-item>
       </r-link>
     </template>
@@ -23,22 +20,18 @@
     <el-submenu
       v-else
       ref="subMenu"
-      :index="resolvePath(item.path)"
+      :index="resolvePath(item)"
       popper-append-to-body
     >
       <template slot="title">
-        <item
-          v-if="item.meta"
-          :icon="item.meta && item.meta.icon"
-          :title="item.meta.title"
-        />
+        <item v-if="item.menuId" :title="item.menuName + '|' + item.menuId" />
       </template>
       <sidebar-item
         v-for="child in item.children"
-        :key="child.path"
+        :key="child.menuId"
         :is-nest="true"
         :item="child"
-        :base-menu-id="route.menuId"
+        :base-menu-id="child.menuId"
         class="nest-menu"
       />
     </el-submenu>
@@ -47,7 +40,7 @@
 
 <script>
 // import path from "path";
-// import { isExternal } from "@/utils/validate";
+import { isExternal } from "@/utils/validate";
 import Item from "./Item";
 // import AppLink from './Link'
 import RLink from "./Rlink";
@@ -58,7 +51,6 @@ export default {
   components: { Item, RLink },
   mixins: [FixiOSBug],
   props: {
-    // route object
     item: {
       type: Object,
       required: true
@@ -70,6 +62,11 @@ export default {
     baseMenuId: {
       type: [String, Number],
       default: ""
+    }
+  },
+  computed: {
+    keymap() {
+      return this.$store.state.permission.map;
     }
   },
   data() {
@@ -107,16 +104,29 @@ export default {
 
       return false;
     },
-    resolvePath(routePath) {
-      // if (isExternal(routePath)) {
-      //   return routePath;
-      // }
-      // if (isExternal(this.basePath)) {
-      //   return this.basePath;
-      // }
-      // return path.resolve(this.basePath, routePath);
-      console.log(routePath);
-      return 12;
+    resolveLink(data) {
+      let value = this.keymap.get(data.menuId);
+      if (value) {
+        return { name: value.name, params: { id: data.menuId } };
+      } else {
+        return { name: "ErrPage", params: { id: data.menuId } };
+      }
+    },
+    resolvePath(data) {
+      // console.log(data);
+      // console.log(this.keymap.get(data.menuId));
+      let value = this.keymap.get(data.menuId);
+      if (value) {
+        if (isExternal(value.path)) {
+          return value.path;
+        }
+        // if (isExternal(this.basePath)) {
+        //   return this.basePath;
+        // }
+        return value.path;
+      } else {
+        return String(data.menuId);
+      }
     }
   }
 };

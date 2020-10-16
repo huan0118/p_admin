@@ -1,11 +1,15 @@
 <template>
   <div>
-    <router-link v-if="!linkProps(to)" :to="to">
+    <!-- <router-link v-if="!linkProps(to)" :to="to">
       <slot />
     </router-link>
     <a v-else :href="to" target="_blank" rel="noopener">
       <slot />
-    </a>
+    </a> -->
+
+    <router-link :to="to">
+      <slot />
+    </router-link>
   </div>
 </template>
 
@@ -14,7 +18,7 @@ import { isExternal } from "@/utils/validate";
 export default {
   props: {
     to: {
-      type: String,
+      type: [String, Object],
       required: true
     }
   },

@@ -32,7 +32,9 @@ function setAsyncRoutes(route, info) {
       if (item.menuName) {
         route.meta.title = item.menuName;
       }
-      route.meta.authority = item.authority ? item.authority : "no-authority";
+      route.meta.authority = Object.freeze(item.authority)
+        ? item.authority
+        : "no-authority";
       route.hidden = +item.is_hidden === 1;
     }
   }
@@ -94,10 +96,9 @@ const mutations = {
     state.addRoutes = Object.freeze(routes);
     state.routes = Object.freeze(constantRoutes.concat(routes));
   },
-  SET_MAP: (state, palyload) => {
-    for (const item of palyload) {
-      state.map.set(item.menuId, item);
-    }
+  SET_MAP: (state, payload) => {
+    let keys = Object.keys(payload);
+    keys.forEach(item => state.map.set(+item, payload[item]));
   }
 };
 
@@ -106,18 +107,12 @@ const actions = {
     return new Promise(resolve => {
       const accessedRoutes = exfilterAsyncRoutes(asyncRoutes, ids, map);
       commit("SET_ROUTES", accessedRoutes);
-      console.log(
-        accessedRoutes,
-        "accessedRoutes",
-        publicRoutes,
-        NoVerificationRoutes
-      );
       const asyncMap = filterAsyncMap(asyncRoutes, ids, map);
       // Building a real routing information
-      console.log(asyncMap, "asyncMap");
+      commit("SET_MAP", asyncMap);
       publicRoutes.children = accessedRoutes;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
-      console.log(realRoutes);
+      console.log(realRoutes, "realRoutes");
       resolve(realRoutes);
     });
   }

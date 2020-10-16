@@ -26,7 +26,6 @@ export const constantRoutes = [
 ];
 export const publicRoutes = {
   path: "/",
-  name: "Home",
   component: layout
 };
 
@@ -39,8 +38,16 @@ export const asyncRoutes = [
     path: "",
     name: "Index",
     meta: {},
-    Identification: 3000,
+    Identification: 3001,
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
+  },
+
+  {
+    path: "index2",
+    name: "Index2",
+    meta: {},
+    Identification: 3002,
+    component: () => import(/* webpackChunkName: "Home" */ "../views/About.vue")
   },
   {
     path: "/about",

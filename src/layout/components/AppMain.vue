@@ -1,11 +1,13 @@
 <template>
   <section class="app-main">
     <el-scrollbar ref="scrollContainer" :vertical="true" class="warp-container">
-      <transition name="fade-transform" mode="out-in">
+      <!-- <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
           <router-view :key="key" class="warp-padding" />
         </keep-alive>
-      </transition>
+      </transition> -->
+
+      <router-view :key="key" class="warp-padding" />
     </el-scrollbar>
   </section>
 </template>
