@@ -195,20 +195,20 @@ export function param2Obj(url) {
 }
 
 /**
- * @param {Array,boolean}
+ * @param {Array}
  * @returns {Array}
  */
 
-export function flat(arr, key) {
-  if (!key) {
+export function flat(arr) {
+  if (!Array.isArray(arr)) {
     return;
   }
   const res = [];
   for (const item of arr) {
     if (item.children) {
-      res.push(...flat(item.children, key));
+      res.push(...flat(item.children));
     }
-    item[key] && res.push(item[key]);
+    res.push(item);
   }
 
   return res;

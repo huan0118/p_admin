@@ -61,11 +61,11 @@ const actions = {
             reject(new Error("验证失败, 请重新登入"));
             return;
           }
-          const nav = flat(data, "menuId")
-            .map(e => +e)
+          const nav = flat(data)
+            .map(e => +e.menuId)
             .sort();
-          const webs = flat(asyncRoutes, "Identification")
-            .map(e => +e)
+          const webs = flat(asyncRoutes)
+            .map(e => +e.Identification)
             .sort();
           // 交集
           const ids = _.intersection(nav, webs);

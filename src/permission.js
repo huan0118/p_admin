@@ -43,7 +43,6 @@ router.beforeEach(async (to, from, next) => {
           );
 
           // dynamically add accessible routes
-          console.log(router, "router");
           router.addRoutes(accessRoutes);
 
           // hack method to ensure that addRoutes is complete
