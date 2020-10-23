@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="from-box">
       <div class="title-container">
-        <h3 class="title">p_admin</h3>
+        <h3 class="title">RM</h3>
       </div>
 
       <el-form
@@ -13,7 +13,9 @@
         label-position="left"
       >
         <el-form-item prop="username">
-          <span class="svg-container"> </span>
+          <span class="svg-container">
+            <svg-icon icon-class="user" />
+          </span>
           <el-input
             ref="username"
             v-model="loginForm.username"
@@ -24,7 +26,7 @@
         </el-form-item>
 
         <el-form-item prop="password">
-          <span class="svg-container"> </span>
+          <span class="svg-container"><svg-icon icon-class="password"/></span>
           <el-input
             ref="password"
             v-model="loginForm.password"
@@ -32,11 +34,11 @@
             placeholder="请输入密码"
             autocomplete="on"
           />
-          <!-- <span class="show-pwd" @click.stop="hanleEye"> -->
-          <!-- <svg-icon
+          <span class="show-pwd" @click.stop="hanleEye">
+            <svg-icon
               :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-            /> -->
-          <!-- </span> -->
+            />
+          </span>
         </el-form-item>
         <el-button
           :loading="loading"
@@ -64,8 +66,6 @@ export default {
         username: "admin", // dhadmin
         password: "123456" // 123456
       },
-      codeloading: false,
-      captchaKey: "",
       passwordType: "password",
       loading: false,
       redirect: null
@@ -79,7 +79,6 @@ export default {
       immediate: true
     }
   },
-  created() {},
   mounted() {
     if (this.loginForm.username === "") {
       this.$refs.username.focus();
@@ -108,12 +107,10 @@ export default {
       try {
         await this.$store.dispatch("user/login", data);
         await this.$router.push({ path: this.redirect || "/" });
-        const a = this.$router.forward();
-        console.log(a);
         this.loading = false;
       } catch (error) {
         this.loading = false;
-        console.warn(error);
+        // console.warn("error", error);
       }
     }
   }
@@ -128,14 +125,6 @@ $bg: #3881c6;
 $light_gray: #fff;
 $cursor: #fff;
 
-.imgaddStyle {
-  width: 40%;
-  float: right;
-  height: 47px;
-  position: relative;
-  bottom: 10px;
-}
-
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
     color: $cursor;
@@ -148,7 +137,6 @@ $cursor: #fff;
 
   .login-container .login-form .el-form-item {
     background: none;
-    border-bottom: 1px solid #cccccc;
   }
 }
 
@@ -183,7 +171,6 @@ $cursor: #fff;
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
     color: #454545;
   }
 }
@@ -191,7 +178,7 @@ $cursor: #fff;
 
 <style lang="scss" scoped>
 $loginBg: whitesmoke;
-$dark_gray: #889aa4;
+$dark_gray: azure;
 $light_gray: white;
 
 .login-container {
@@ -207,7 +194,7 @@ $light_gray: white;
     width: 500px;
     height: 500px;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     z-index: 99;
     background: $loginBg;
     background-image: linear-gradient(
@@ -261,19 +248,8 @@ $light_gray: white;
     z-index: 99;
 
     .login-btn {
-      margin-top: 30px;
-    }
-  }
-
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
+      margin-top: 20px;
+      border-radius: inherit;
     }
   }
 
@@ -308,23 +284,9 @@ $light_gray: white;
     user-select: none;
   }
 
-  .thirdparty-button {
-    position: absolute;
-    right: 0;
-    bottom: 6px;
-  }
-
   @media only screen and (max-width: 470px) {
-    .thirdparty-button {
-      display: none;
-    }
-
     .login-form {
       width: 92%;
-    }
-
-    .from-left {
-      display: none;
     }
   }
 }
