@@ -18,7 +18,7 @@ export function getInfo() {
 
 export function logout() {
   return request({
-    url: "/admins/logout",
+    url: "/power-admin/user/logout",
     method: "post"
   });
 }

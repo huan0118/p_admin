@@ -5,6 +5,12 @@ import {
   NoVerificationRoutes
 } from "@/router";
 // import _ from "lodash";
+const state = {
+  routes: [],
+  addRoutes: [],
+  map: new Map()
+};
+
 /**
  * 检测路由id 匹配路由数据 ids后端返回权限id列表
  * @param ids
@@ -84,12 +90,6 @@ export function exfilterAsyncRoutes(routes, ids, map) {
 
   return res;
 }
-
-const state = {
-  routes: [],
-  addRoutes: [],
-  map: new Map()
-};
 
 const mutations = {
   SET_ROUTES: (state, routes) => {

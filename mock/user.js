@@ -20,7 +20,7 @@ module.exports = [
 
   // user logout
   {
-    url: "/vue-element-admin/user/logout",
+    url: "/power-admin/user/logout",
     type: "post",
     // eslint-disable-next-line no-unused-vars
     response: _ => {

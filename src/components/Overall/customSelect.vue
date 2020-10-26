@@ -1,7 +1,6 @@
 <script>
-
 export default {
-  name: 'Lockcode',
+  name: "Lockcode",
   props: {
     locktype: {
       type: [String],
@@ -20,18 +19,20 @@ export default {
     }
   },
   computed: {
-    locks () {
-      return this.$store.getters.dictionaryData.filters((e) => e.lookupType === this.locktype)
+    locks() {
+      return this.$store.getters.dictionaryData.filters(
+        e => e.lookupType === this.locktype
+      );
     }
   },
-  render (createElement) {
-    return createElement('el-option', {
+  render(createElement) {
+    return createElement("el-option", {
       props: {
         label: this.label,
         value: this.value,
         disabled: this.disabled
       }
-    })
+    });
   }
-}
+};
 </script>

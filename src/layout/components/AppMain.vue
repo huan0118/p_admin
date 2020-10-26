@@ -45,11 +45,11 @@ export default {
     // min-height: calc(100vh - 84px);
   }
   .fixed-header + .app-main {
-    padding-top: 84px;
+    padding-top: 50px;
   }
 }
 .warp-container {
-  height: calc(100vh - 84px);
+  height: calc(100vh - 50px);
 }
 </style>
 
