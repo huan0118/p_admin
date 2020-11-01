@@ -1,6 +1,6 @@
 <template>
   <div class="home" @click="handleClick">
-    首页12
+    首页12asd
   </div>
 </template>
 
@@ -11,9 +11,7 @@ export default {
   name: "Index",
   components: {},
   methods: {
-    handleClick() {
-      console.log(this.$router.resolve());
-    }
+    handleClick() {}
   }
 };
 </script>

@@ -4,7 +4,6 @@ import {
   publicRoutes,
   NoVerificationRoutes
 } from "@/router";
-// import _ from "lodash";
 const state = {
   routes: [],
   addRoutes: [],
@@ -75,14 +74,16 @@ function filterAsyncMap(routes, ids, map, esMap = {}) {
  */
 export function exfilterAsyncRoutes(routes, ids, map) {
   const res = [];
-  // console.log(routes, 'routes, ids, map')
   routes.forEach(route => {
     const tmp = { ...route };
     if (hasDetection(ids, tmp)) {
       setAsyncRoutes(tmp, map);
+      // if (tmp.children) {
+      //   tmp.children = exfilterAsyncRoutes(tmp.children, ids, map);
+      //   tmp.redirect = { name: tmp.children[0].name };
+      // }
       if (tmp.children) {
-        tmp.children = exfilterAsyncRoutes(tmp.children, ids, map);
-        tmp.redirect = { name: tmp.children[0].name };
+        delete tmp.children;
       }
       res.push(tmp);
     }
