@@ -2,7 +2,7 @@
   <div>
     <el-badge :is-dot="true" @click.native="dialogTableVisible = true">
       <el-button style="padding: 8px 10px;" size="small" type="danger">
-        <!-- <svg-icon icon-class="bug" /> -->
+        <svg-icon icon-class="bug" />
       </el-button>
     </el-badge>
 

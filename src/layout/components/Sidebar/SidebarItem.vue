@@ -99,9 +99,6 @@ export default {
         this.onlyOneChild = { ...parent, path: "", noShowingChildren: true };
         return true;
       }
-
-      // console.log(this)
-
       return false;
     },
     resolveLink(data) {
@@ -113,7 +110,6 @@ export default {
       }
     },
     resolvePath(data) {
-      // console.log(data);
       // console.log(this.keymap.get(data.menuId));
       let value = this.keymap.get(data.menuId);
       if (value) {

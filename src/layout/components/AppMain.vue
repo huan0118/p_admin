@@ -15,6 +15,9 @@
 <script>
 export default {
   name: "AppMain",
+  created() {
+    console.log(this.cachedViews);
+  },
   computed: {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews;
