@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
 const TokenKey = "token";
-const userkey = "userid";
+const userKey = "uId";
 const CookieKey = "Cid";
 
 export function getToken() {
@@ -16,26 +16,26 @@ export function removeToken() {
   return Cookies.remove(TokenKey);
 }
 
-export function getUserid() {
-  return Cookies.get(userkey);
+export function getUserId() {
+  return Cookies.get(userKey);
 }
 
-export function setUserid(id) {
-  return Cookies.set(userkey, id);
+export function setUserId(id) {
+  return Cookies.set(userKey, id);
 }
 
-export function removeTUserid() {
-  return Cookies.remove(userkey);
+export function removeTUserId() {
+  return Cookies.remove(userKey);
 }
 
-export function getCookieid() {
+export function getCookieId() {
   return Cookies.get(CookieKey);
 }
 
-export function setCookieid(id) {
+export function setCookieId(id) {
   return Cookies.set(CookieKey, id);
 }
 
-export function removeCookieid() {
+export function removeCookieId() {
   return Cookies.remove(TokenKey);
 }

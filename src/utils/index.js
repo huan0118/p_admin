@@ -40,10 +40,8 @@ export function signUtil(params) {
   }
   delete newParams.sign;
   delete newParams.except_field;
-  // console.log('delete', newParams)
   let signs = [];
   let keys = Object.keys(newParams);
-  // console.log(keys, '===========')
   keys.sort().forEach(e => {
     if (isDefstr(newParams[e])) {
       signs.push(newParams[e]);

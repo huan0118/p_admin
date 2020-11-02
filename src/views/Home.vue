@@ -1,6 +1,6 @@
 <template>
   <div class="home" @click="handleClick">
-    首页12asd
+    首页
   </div>
 </template>
 
