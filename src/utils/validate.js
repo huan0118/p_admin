@@ -65,16 +65,12 @@ export function removeTreeitem(data, pid) {
  * @returns {object} tree
  */
 export function filterTree(data, type, identifying) {
-  // const obj = {}
-  // console.log(data, type)
-
   for (let i = 0; i < data.length; i++) {
     if (data[i].childs && data[i].childs.length) {
       filterTree(data[i].childs, type, identifying);
     }
 
     if (data[i][type] === identifying) {
-      // console.log(data[i])
       data.splice(i, 1);
       i--;
     }
