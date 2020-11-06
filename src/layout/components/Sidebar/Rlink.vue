@@ -1,15 +1,11 @@
 <template>
   <div>
-    <!-- <router-link v-if="!linkProps(to)" :to="to">
+    <router-link v-if="!linkProps(to)" :to="to">
       <slot />
     </router-link>
     <a v-else :href="to" target="_blank" rel="noopener">
       <slot />
-    </a> -->
-
-    <router-link :to="to">
-      <slot />
-    </router-link>
+    </a>
   </div>
 </template>
 
