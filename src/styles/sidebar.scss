@@ -67,7 +67,7 @@
     .submenu-title-noDropdown,
     .el-submenu__title {
       &:hover {
-        background-color: #fff !important;
+        background-color: $subMenuHover !important;
       }
     }
 
@@ -184,7 +184,7 @@
   .el-menu-item {
     &:hover {
       // you can use $subMenuHover
-      background-color: #D2E8FF !important;
+      background-color: $subMenuHover !important;
     }
   }
 
@@ -220,12 +220,5 @@
 #app .sidebar-container .el-menu-item.is-active {
   color: #333 !important;
   font-weight: bold;
-  background-color: #D2E8FF !important;
-}
-
-.iconfont {
-  margin-right: 4px;
-}
-.el-submenu__title .iconfont{
-  color: #1890FF;
+  background-color: $subMenuHover !important;
 }

@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 const TokenKey = "token";
 const userKey = "uId";
-const CookieKey = "Cid";
+const CookieKey = "cId";
 
 export function getToken() {
   return Cookies.get(TokenKey);
