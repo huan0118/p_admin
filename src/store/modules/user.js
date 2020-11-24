@@ -2,7 +2,7 @@ import { login, logout, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter, asyncRoutes } from "@/router";
 import { flat, flatObject, isDefstr } from "@/utils/index";
-import _ from "lodash";
+import intersection from "lodash/intersection";
 const state = {
   token: getToken(),
   name: "",
@@ -68,7 +68,7 @@ const actions = {
             .map(e => +e.Identification)
             .sort();
           // 交集
-          const ids = _.intersection(nav, webs);
+          const ids = intersection(nav, webs);
 
           const map = flatObject(data);
           // ids must be a non-empty array

@@ -1,8 +1,6 @@
 <template>
   <div v-if="!item.hidden" class="menu-wrapper">
-    <template
-      v-if="hasOneShowingChild(item.children, item) && !onlyOneChild.children"
-    >
+    <template v-if="hasOneShowingChild(item.children, item)">
       <r-link v-if="onlyOneChild.menuId" :to="resolveLink(onlyOneChild)">
         <el-menu-item :index="resolvePath(onlyOneChild)">
           <item :title="onlyOneChild.menuName + '|' + onlyOneChild.menuId" />
@@ -10,7 +8,12 @@
       </r-link>
     </template>
 
-    <el-submenu v-else ref="subMenu" :index="item.menuId" popper-append-to-body>
+    <el-submenu
+      v-else
+      ref="subMenu"
+      :index="item.menuId + ''"
+      popper-append-to-body
+    >
       <template slot="title">
         <item v-if="item.menuId" :title="item.menuName + '|' + item.menuId" />
       </template>
@@ -26,7 +29,7 @@
 </template>
 
 <script>
-// import path from "path";
+import path from "path";
 import { isExternal } from "@/utils/validate";
 import Item from "./Item";
 // import AppLink from './Link'
@@ -52,8 +55,8 @@ export default {
     }
   },
   computed: {
-    keymap() {
-      return this.$store.state.permission.map;
+    menuMap() {
+      return this.$store.state.permission.menuMap;
     }
   },
   data() {
@@ -66,6 +69,10 @@ export default {
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
+      if (!children.length) {
+        this.onlyOneChild = { ...parent, noShowingChildren: true };
+        return true;
+      }
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
@@ -76,37 +83,32 @@ export default {
         }
       });
 
-      // When there is only one child router, the child router is displayed by default
-      // if (showingChildren.length === 1) {
-      //   return true;
-      // }
-
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
-        this.onlyOneChild = { ...parent, noShowingChildren: true };
+        this.onlyOneChild = { ...parent, childrenAllHide: true };
         return true;
       }
       return false;
     },
     resolveLink(data) {
-      let value = this.keymap.get(data.menuId);
+      let value = this.menuMap[data.menuId];
       if (value) {
-        return { name: value.name, params: { id: data.menuId } };
+        return { name: value.name };
       } else {
-        return { name: "ErrPage", params: { id: data.menuId } };
+        return { name: "ErrPage" };
       }
     },
     resolvePath(data) {
-      // console.log(this.keymap.get(data.menuId));
-      let value = this.keymap.get(data.menuId);
+      let value = this.menuMap[data.menuId];
       if (value) {
+        console.log(path);
         if (isExternal(value.path)) {
           return value.path;
         }
         // if (isExternal(this.basePath)) {
         //   return this.basePath;
         // }
-        return value.path;
+        return path.resolve("/", value.path);
       } else {
         return String(data.menuId);
       }

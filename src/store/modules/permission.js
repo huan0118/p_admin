@@ -7,7 +7,7 @@ import {
 const state = {
   routes: [],
   addRoutes: [],
-  map: new Map()
+  menuMap: {}
 };
 
 /**
@@ -59,9 +59,9 @@ function filterAsyncMap(routes, ids, map, esMap = {}) {
           esMap[item.menuId] = { name: route.name, path: route.path };
         }
       }
-      if (tmp.children) {
-        filterAsyncMap(tmp.children, ids, map, esMap);
-      }
+      // if (tmp.children) {
+      //   filterAsyncMap(tmp.children, ids, map, esMap);
+      // }
     }
   });
 
@@ -72,14 +72,14 @@ function filterAsyncMap(routes, ids, map, esMap = {}) {
  * @param routes asyncRoutes
  * @param ids
  */
-export function exfilterAsyncRoutes(routes, ids, map) {
+export function filterAsyncRoutes(routes, ids, map) {
   const res = [];
   routes.forEach(route => {
     const tmp = { ...route };
     if (hasDetection(ids, tmp)) {
       setAsyncRoutes(tmp, map);
       // if (tmp.children) {
-      //   tmp.children = exfilterAsyncRoutes(tmp.children, ids, map);
+      //   tmp.children = filterAsyncRoutes(tmp.children, ids, map);
       //   tmp.redirect = { name: tmp.children[0].name };
       // }
       if (tmp.children) {
@@ -98,19 +98,19 @@ const mutations = {
     state.routes = Object.freeze(constantRoutes.concat(routes));
   },
   SET_MAP: (state, payload) => {
-    let keys = Object.keys(payload);
-    keys.forEach(item => state.map.set(+item, payload[item]));
+    state.menuMap = payload;
   }
 };
 
 const actions = {
   generateRoutes({ commit }, { ids, map }) {
     return new Promise(resolve => {
-      const accessedRoutes = exfilterAsyncRoutes(asyncRoutes, ids, map);
+      const accessedRoutes = filterAsyncRoutes(asyncRoutes, ids, map);
       commit("SET_ROUTES", accessedRoutes);
+      console.log(asyncRoutes, "asyncRoutes");
       const asyncMap = filterAsyncMap(asyncRoutes, ids, map);
       // Building a real routing information
-      commit("SET_MAP", asyncMap);
+      commit("SET_MAP", Object.freeze(asyncMap));
       publicRoutes.children = accessedRoutes;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
       console.log(realRoutes, "realRoutes");
