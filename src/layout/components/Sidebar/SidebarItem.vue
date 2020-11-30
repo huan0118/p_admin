@@ -30,9 +30,7 @@
 
 <script>
 import path from "path";
-import { isExternal } from "@/utils/validate";
 import Item from "./Item";
-// import AppLink from './Link'
 import RLink from "./Rlink";
 import FixiOSBug from "./FixiOSBug";
 
@@ -77,8 +75,6 @@ export default {
         if (item.hidden) {
           return false;
         } else {
-          // Temp set(will be used if only has one showing child)
-          // this.onlyOneChild = item;
           return true;
         }
       });
@@ -101,13 +97,6 @@ export default {
     resolvePath(data) {
       let value = this.menuMap[data.menuId];
       if (value) {
-        console.log(path);
-        if (isExternal(value.path)) {
-          return value.path;
-        }
-        // if (isExternal(this.basePath)) {
-        //   return this.basePath;
-        // }
         return path.resolve("/", value.path);
       } else {
         return String(data.menuId);
