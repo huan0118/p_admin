@@ -1,5 +1,4 @@
 import defaultSettings from "@/settings";
-import { Object } from "core-js";
 
 const { showSettings, fixedHeader, sidebarLogo, tagsView } = defaultSettings;
 

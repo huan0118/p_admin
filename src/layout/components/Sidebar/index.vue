@@ -31,9 +31,6 @@ import variables from "@/styles/variables.scss";
 
 export default {
   components: { SidebarItem, Logo },
-  created() {
-    // console.log(this.NAVIGATION, "NAVIGATION");
-  },
   computed: {
     ...mapGetters(["NAVIGATION", "sidebar"]),
     activeMenu() {
