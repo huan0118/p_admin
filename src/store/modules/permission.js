@@ -4,6 +4,7 @@ import {
   publicRoutes,
   NoVerificationRoutes
 } from "@/router";
+
 const state = {
   routes: [],
   addRoutes: [],
@@ -107,12 +108,13 @@ const actions = {
     return new Promise(resolve => {
       const accessedRoutes = filterAsyncRoutes(asyncRoutes, ids, map);
       commit("SET_ROUTES", accessedRoutes);
-      console.log(asyncRoutes, "asyncRoutes");
+
       const asyncMap = filterAsyncMap(asyncRoutes, ids, map);
-      // Building a real routing information
       commit("SET_MAP", Object.freeze(asyncMap));
+
       publicRoutes.children = accessedRoutes;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
+
       console.log(realRoutes, "realRoutes");
       resolve(realRoutes);
     });

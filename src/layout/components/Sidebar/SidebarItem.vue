@@ -31,7 +31,7 @@
 <script>
 import path from "path";
 import Item from "./Item";
-import RLink from "./Rlink";
+import RLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
 
 export default {
@@ -85,9 +85,9 @@ export default {
     resolveLink(data) {
       let value = this.menuMap[data.menuId];
       if (value) {
-        return { name: value.name };
+        return path.resolve("/", value.path);
       } else {
-        return { name: "ErrPage" };
+        return path.resolve("/", "404");
       }
     },
     resolvePath(data) {

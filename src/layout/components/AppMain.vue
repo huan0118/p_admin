@@ -1,3 +1,9 @@
+<!--
+ * @Author: liuhuan
+ * @Date: 2020-11-02 20:05:36
+ * @LastEditors: liuhuan 1641186065@qq.com
+ * @LastEditTime: 2020-12-08 16:13:06
+-->
 <template>
   <section class="app-main">
     <el-scrollbar ref="scrollContainer" :vertical="true" class="warp-container">
@@ -15,9 +21,7 @@
 <script>
 export default {
   name: "AppMain",
-  created() {
-    console.log(this.cachedViews);
-  },
+  created() {},
   computed: {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews;
