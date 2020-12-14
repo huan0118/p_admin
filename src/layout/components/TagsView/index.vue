@@ -76,8 +76,8 @@ export default {
     }
   },
   mounted() {
-    // this.initTags();
-    // this.addTags();
+    this.initTags();
+    this.addTags();
   },
   methods: {
     isActive(route) {
@@ -91,12 +91,14 @@ export default {
       routes.forEach(route => {
         if (route.meta && route.meta.affix) {
           const tagPath = path.resolve(basePath, route.path);
-          tags.push({
-            fullPath: tagPath,
-            path: tagPath,
-            name: route.name,
-            meta: { ...route.meta }
-          });
+          tags.push(
+            Object.freeze({
+              fullPath: tagPath,
+              path: tagPath,
+              name: route.name,
+              meta: { ...route.meta }
+            })
+          );
         }
         if (route.children) {
           const tempTags = this.filterAffixTags(route.children, route.path);
@@ -108,14 +110,14 @@ export default {
       return tags;
     },
     initTags() {
-      // const affixTags = (this.affixTags = this.filterAffixTags(this.routes));
-      // console.log(affixTags);
-      // for (const tag of affixTags) {
-      //   // Must have tag name
-      //   if (tag.name) {
-      //     this.$store.dispatch("tagsView/addVisitedView", tag);
-      //   }
-      // }
+      const affixTags = (this.affixTags = this.filterAffixTags(this.routes));
+      console.log(affixTags, "affixTags");
+      for (const tag of affixTags) {
+        // Must have tag name
+        if (tag.name) {
+          this.$store.dispatch("tagsView/addVisitedView", tag);
+        }
+      }
     },
     addTags() {
       const { name } = this.$route;

@@ -66,7 +66,9 @@ export const asyncRoutes = [
   {
     path: "",
     name: "Index",
-    meta: {},
+    meta: {
+      affix: true
+    },
     Identification: 3001,
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
   },
