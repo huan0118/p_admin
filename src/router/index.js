@@ -84,6 +84,17 @@ export const asyncRoutes = [
       import(
         /* webpackChunkName: "Responsibility" */ "../views/responsibility/index.vue"
       )
+  },
+
+  {
+    path: "resources",
+    name: "Resources",
+    meta: {
+      affix: true
+    },
+    Identification: 3003,
+    component: () =>
+      import(/* webpackChunkName: "Resources" */ "../views/resources/index.vue")
   }
 ];
 

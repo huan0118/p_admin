@@ -2,7 +2,7 @@
  * @Author: liuhuan
  * @Date: 2020-11-02 20:05:36
  * @LastEditors: liuhuan 1641186065@qq.com
- * @LastEditTime: 2020-12-08 16:13:06
+ * @LastEditTime: 2020-12-29 16:06:33
 -->
 <template>
   <section class="app-main">
@@ -56,7 +56,7 @@ export default {
   }
 }
 .warp-container {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 84px);
 }
 </style>
 
