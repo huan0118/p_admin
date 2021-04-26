@@ -56,9 +56,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token)
         .then(({ data }) => {
-          console.log(data, "getInfo");
           if (!data) {
-            reject(new Error("验证失败, 请重新登入"));
+            reject(new Error("用户信息获取失败, 请重新登入"));
             return;
           }
           const nav = flat(data)
