@@ -14,7 +14,7 @@ Vue.use(VueRouter);
  * hidden: true                   if set true, item will not show in the sidebar(default is false)
  * alwaysShow: true               delete !!!
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * Identification                 The only sign (asyncRoutes must set!!!)
+ * id                 The only sign (asyncRoutes must set!!!)
  * meta : {
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
@@ -64,26 +64,24 @@ export const NoVerificationRoutes = [
 
 export const asyncRoutes = [
   {
-    path: "",
-    name: "Index",
+    path: "home",
+    name: "Home",
     meta: {
       affix: true
     },
-    Identification: 3001,
+    id: 3000,
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
   },
 
   {
-    path: "index2",
-    name: "Index2",
+    path: "about",
+    name: "About",
     meta: {
       affix: true
     },
-    Identification: 3002,
+    id: 3002,
     component: () =>
-      import(
-        /* webpackChunkName: "Responsibility" */ "../views/responsibility/index.vue"
-      )
+      import(/* webpackChunkName: "Responsibility" */ "../views/About.vue")
   },
 
   {
@@ -92,7 +90,7 @@ export const asyncRoutes = [
     meta: {
       affix: true
     },
-    Identification: 3003,
+    id: 3003,
     component: () =>
       import(/* webpackChunkName: "Resources" */ "../views/resources/index.vue")
   }

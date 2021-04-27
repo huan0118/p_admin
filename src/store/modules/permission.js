@@ -1,10 +1,5 @@
-import {
-  asyncRoutes,
-  constantRoutes,
-  publicRoutes,
-  NoVerificationRoutes
-} from "@/router";
-
+import { constantRoutes, publicRoutes, NoVerificationRoutes } from "@/router";
+import { treeFindPath } from "@/utils/index";
 const state = {
   routes: [],
   addRoutes: [],
@@ -51,23 +46,23 @@ function setAsyncRoutes(route, info) {
  * @param ids
  * @param map
  */
-function filterAsyncMap(routes, ids, map, esMap = {}) {
-  routes.forEach(route => {
-    const tmp = { ...route };
-    if (hasDetection(ids, tmp)) {
-      for (const item of map) {
-        if (+item.menuId === +tmp.Identification) {
-          esMap[item.menuId] = { name: route.name, path: route.path };
-        }
-      }
-      // if (tmp.children) {
-      //   filterAsyncMap(tmp.children, ids, map, esMap);
-      // }
-    }
-  });
+// function filterAsyncMap(routes, ids, map, esMap = {}) {
+//   routes.forEach(route => {
+//     const tmp = { ...route };
+//     if (hasDetection(ids, tmp)) {
+//       for (const item of map) {
+//         if (+item.menuId === +tmp.Identification) {
+//           esMap[item.menuId] = { name: route.name, path: route.path };
+//         }
+//       }
+//       // if (tmp.children) {
+//       //   filterAsyncMap(tmp.children, ids, map, esMap);
+//       // }
+//     }
+//   });
 
-  return esMap;
-}
+//   return esMap;
+// }
 /**
  * 过滤路由
  * @param routes asyncRoutes
@@ -104,15 +99,20 @@ const mutations = {
 };
 
 const actions = {
-  generateRoutes({ commit }, { ids, map }) {
+  generateRoutes({ commit, rootState }, config) {
     return new Promise(resolve => {
-      const accessedRoutes = filterAsyncRoutes(asyncRoutes, ids, map);
-      commit("SET_ROUTES", accessedRoutes);
+      const routeDeepPath = treeFindPath(rootState.user.navigation, function(
+        node
+      ) {
+        return config.includes(node.menuId);
+      });
+      console.log(routeDeepPath);
+      commit("SET_ROUTES", []);
 
-      const asyncMap = filterAsyncMap(asyncRoutes, ids, map);
-      commit("SET_MAP", Object.freeze(asyncMap));
+      // const asyncMap = filterAsyncMap(asyncRoutes, ids, map);
+      // commit("SET_MAP", Object.freeze(asyncMap));
 
-      publicRoutes.children = accessedRoutes;
+      publicRoutes.children = config;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
 
       console.log(realRoutes, "realRoutes");

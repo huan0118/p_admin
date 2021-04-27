@@ -224,3 +224,29 @@ export function flatObject(array) {
 
   return res;
 }
+
+/**
+ * @param {Array} tree
+ * @returns {Array}
+ */
+export function treeFilter(tree, func) {
+  return tree
+    .map(node => ({ ...node }))
+    .filter(node => {
+      if (node.children) {
+        node.children = treeFilter(node.children, func);
+      }
+
+      return func(node);
+    });
+}
+
+export function treeFindPath(tree, func, path = [], result = []) {
+  for (const data of tree) {
+    path.push(data.menuId);
+    func(data) && result.push([...path]);
+    data.children && treeFindPath(data.children, func, path, result);
+    path.pop();
+  }
+  return result;
+}

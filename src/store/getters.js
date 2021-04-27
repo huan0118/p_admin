@@ -6,7 +6,7 @@ const getters = {
   name: state => state.user.name,
   ids: state => state.user.ids,
   menuIds: state => state.user.ids,
-  NAVIGATION: state => state.user.NAVIGATION,
+  navigation: state => state.user.navigation,
   errorLogs: state => state.errorLog.logs
 };
 export default getters;

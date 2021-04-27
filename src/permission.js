@@ -32,12 +32,12 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           // 获取用户信息
-          const assemble = await store.dispatch("user/getInfo");
-          console.log(assemble, "assemble");
+          const config = await store.dispatch("user/getInfo");
+          console.log(config, "Config");
           // generate accessible routes map based on ids
           const accessRoutes = await store.dispatch(
             "permission/generateRoutes",
-            assemble
+            config
           );
 
           // dynamically add accessible routes
