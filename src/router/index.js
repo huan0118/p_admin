@@ -14,7 +14,7 @@ Vue.use(VueRouter);
  * hidden: true                   if set true, item will not show in the sidebar(default is false)
  * alwaysShow: true               delete !!!
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * id                 The only sign (asyncRoutes must set!!!)
+ * menuId                         The only sign (asyncRoutes must set!!!)
  * meta : {
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
@@ -59,17 +59,22 @@ export const publicRoutes = {
  */
 
 export const NoVerificationRoutes = [
-  { path: "*", redirect: "/404", NoVerification: true, hidden: true }
+  {
+    path: "*",
+    redirect: "/404",
+    NoVerification: true,
+    hidden: true
+  }
 ];
 
 export const asyncRoutes = [
   {
-    path: "home",
+    path: "",
     name: "Home",
     meta: {
       affix: true
     },
-    id: 3000,
+    menuId: 3001,
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
   },
 
@@ -79,20 +84,22 @@ export const asyncRoutes = [
     meta: {
       affix: true
     },
-    id: 3002,
     component: () =>
-      import(/* webpackChunkName: "Responsibility" */ "../views/About.vue")
-  },
-
-  {
-    path: "resources",
-    name: "Resources",
-    meta: {
-      affix: true
-    },
-    id: 3003,
-    component: () =>
-      import(/* webpackChunkName: "Resources" */ "../views/resources/index.vue")
+      import(/* webpackChunkName: "About" */ "../views/About.vue"),
+    children: [
+      {
+        path: "resources",
+        name: "Resources",
+        meta: {
+          affix: true
+        },
+        menuId: 3002,
+        component: () =>
+          import(
+            /* webpackChunkName: "Resources" */ "../views/resources/index.vue"
+          )
+      }
+    ]
   }
 ];
 

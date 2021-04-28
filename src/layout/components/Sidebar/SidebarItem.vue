@@ -1,14 +1,19 @@
 <template>
   <div v-if="!item.hidden" class="menu-wrapper">
-    <!-- <template v-if="hasOneShowingChild(item.children, item)">
-      <r-link v-if="onlyOneChild.menuId" :to="{ name: onlyOneChild.name }">
+    <template v-if="hasOneShowingChild(item.children, item)">
+      <r-link v-if="onlyOneChild.menuId" :to="{ name: onlyOneChild.hrefName }">
         <el-menu-item :index="resolvePath(onlyOneChild)">
           <item :title="onlyOneChild.menuName + '|' + onlyOneChild.menuId" />
         </el-menu-item>
       </r-link>
-    </template> -->
+    </template>
 
-    <el-submenu ref="subMenu" :index="item.menuId + ''" popper-append-to-body>
+    <el-submenu
+      v-else
+      ref="subMenu"
+      :index="item.menuId + ''"
+      popper-append-to-body
+    >
       <template slot="title">
         <item v-if="item.menuId" :title="item.menuName + '|' + item.menuId" />
       </template>
@@ -26,12 +31,12 @@
 <script>
 import path from "path";
 import Item from "./Item";
-// import RLink from "./Link";
+import RLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
 
 export default {
   name: "SidebarItem",
-  components: { Item },
+  components: { Item, RLink },
   mixins: [FixiOSBug],
   props: {
     item: {

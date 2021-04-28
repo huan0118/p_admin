@@ -1,7 +1,7 @@
 import { login, logout, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter, asyncRoutes } from "@/router";
-import { isDefstr } from "@/utils/index";
+import { isDefstr, generateTreeMap } from "@/utils/index";
 import intersection from "lodash/intersection";
 const state = {
   token: getToken(),
@@ -59,38 +59,21 @@ const actions = {
             reject(new Error("用户信息获取失败, 请重新登入"));
             return;
           }
-          // let serveConfig = [];
-          // let node = null;
-          // let list = [...data];
-          // while ((node = list.shift())) {
-          //   serveConfig.push(node.menuId);
-          //   let route = asyncRoutes.find(e => e.id === node.menuId);
-          //   if (route) {
-          //     Object.assign(node, route);
-          //   }
-          //   node.children && list.push(...node.children);
-          // }
 
-          function treeForeach(tree, key, deep = []) {
-            if (!key) {
-              console.warn("key is undefined");
-              return [];
-            }
-            tree.forEach(item => {
-              item.children && treeForeach(item.children, key, deep); // 遍历子树
-              if (!item.children) {
-                deep.push(item[key]);
-              }
-            });
-            return deep;
+          const serveDeeps = generateTreeMap(data, "menuId");
+          const routesDeeps = generateTreeMap(asyncRoutes, "menuId");
+
+          const config = intersection(
+            Array.from(serveDeeps.keys()),
+            Array.from(routesDeeps.keys())
+          );
+
+          for (const menuId of config) {
+            serveDeeps.get(menuId).hrefName = routesDeeps.get(menuId).name;
+            routesDeeps.get(menuId).meta.authority = serveDeeps.get(
+              menuId
+            ).authority;
           }
-          const serveDeeps = treeForeach(data, "menuId");
-          console.log(serveDeeps, "serveDeeps");
-
-          const routesDeeps = treeForeach(asyncRoutes, "id");
-          console.log(routesDeeps, "routesDeeps");
-
-          const config = intersection(serveDeeps, routesDeeps);
 
           commit("SET_ROLE_IDS", config);
           commit("SET_NAVIGATION", Object.freeze(data));

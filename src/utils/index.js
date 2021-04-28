@@ -241,12 +241,16 @@ export function treeFilter(tree, func) {
     });
 }
 
-export function treeFindPath(tree, func, path = [], result = []) {
-  for (const data of tree) {
-    path.push(data.menuId);
-    func(data) && result.push([...path]);
-    data.children && treeFindPath(data.children, func, path, result);
-    path.pop();
+export function generateTreeMap(tree, key, deep = new Map()) {
+  if (!key) {
+    console.warn("key is Must");
+    return deep;
   }
-  return result;
+  tree.forEach(item => {
+    item.children && generateTreeMap(item.children, key, deep); // 遍历子树
+    if (!item.children) {
+      deep.set(item[key], item);
+    }
+  });
+  return deep;
 }
