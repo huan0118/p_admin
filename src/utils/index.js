@@ -1,8 +1,3 @@
-/* eslint-disable no-prototype-builtins */
-import md5 from "js-md5";
-import Base64 from "crypto-js/enc-base64";
-import Utf8 from "crypto-js/enc-utf8";
-import _ from "lodash";
 export function isUndef(v) {
   return v === undefined || v === null;
 }
@@ -11,7 +6,7 @@ export function isDef(v) {
   return v !== undefined && v !== null;
 }
 
-export function isDefstr(v) {
+export function isDefStr(v) {
   return v !== undefined && v !== null && v !== "";
 }
 
@@ -22,58 +17,6 @@ export function isPrimitive(value) {
     typeof value === "symbol" ||
     typeof value === "boolean"
   );
-}
-/**
- *
- * @param {Object} params
- * @returns {string}
- */
-export function signUtil(params) {
-  let newParams = { ...params };
-  let fields = isDef(newParams.except_field)
-    ? newParams.except_field.split(",")
-    : [];
-  let arr = fields.length ? fields : [];
-
-  for (let i = 0; i < arr.length; i++) {
-    delete newParams[arr[i]];
-  }
-  delete newParams.sign;
-  delete newParams.except_field;
-  let signs = [];
-  let keys = Object.keys(newParams);
-  keys.sort().forEach(e => {
-    if (isDefstr(newParams[e])) {
-      signs.push(newParams[e]);
-    } else {
-      console.warn("With escape field");
-    }
-  });
-  return keys.length
-    ? md5(signs.join("&") + "&" + process.env.VUE_APP_API_KEY)
-    : md5("&" + process.env.VUE_APP_API_KEY);
-}
-
-/**
- *
- * @param {Object} data
- * @returns {string}
- */
-export function signPrams(data) {
-  let wants = isDef(data.want_except) ? data.want_except.split(",") : [];
-  if (!wants.length) {
-    return data;
-  }
-  for (const key in data) {
-    if (data.hasOwnProperty(key)) {
-      if (wants.includes(key)) {
-        data[key] = Base64.stringify(Utf8.parse(data[key]));
-      }
-    }
-  }
-  delete data.want_except;
-
-  return data;
 }
 
 /**
@@ -193,61 +136,16 @@ export function param2Obj(url) {
 }
 
 /**
- * @param {Array}
- * @returns {Array}
- */
-
-export function flat(arr) {
-  if (!Array.isArray(arr)) {
-    return;
-  }
-  const res = [];
-  for (const item of arr) {
-    if (item.children) {
-      res.push(...flat(item.children));
-    }
-    res.push(item);
-  }
-
-  return res;
-}
-export function flatObject(array) {
-  const res = [];
-  for (let i = 0; i < array.length; i++) {
-    if (Array.isArray(array[i].children)) {
-      res.push(...flatObject(array[i].children));
-    }
-    let item = _.cloneDeep(array[i]);
-    delete item.children;
-    res.push(item);
-  }
-
-  return res;
-}
-
-/**
  * @param {Array} tree
- * @returns {Array}
+ * @returns {Map} Map
  */
-export function treeFilter(tree, func) {
-  return tree
-    .map(node => ({ ...node }))
-    .filter(node => {
-      if (node.children) {
-        node.children = treeFilter(node.children, func);
-      }
-
-      return func(node);
-    });
-}
-
 export function generateTreeMap(tree, key, deep = new Map()) {
   if (!key) {
     console.warn("key is Must");
     return deep;
   }
   tree.forEach(item => {
-    item.children && generateTreeMap(item.children, key, deep); // 遍历子树
+    item.children && generateTreeMap(item.children, key, deep);
     if (!item.children) {
       deep.set(item[key], item);
     }

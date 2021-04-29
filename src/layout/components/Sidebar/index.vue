@@ -3,7 +3,7 @@
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        :default-active="activeMenu"
+        :default-active="activeMenuId"
         :collapse="isCollapse"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
@@ -16,7 +16,6 @@
           v-for="route in navigation"
           :key="route.menuId"
           :item="route"
-          :base-menu-id="route.menuId"
         />
       </el-menu>
     </el-scrollbar>
@@ -33,12 +32,12 @@ export default {
   components: { SidebarItem, Logo },
   computed: {
     ...mapGetters(["navigation", "sidebar"]),
-    activeMenu() {
+    activeMenuId() {
       const route = this.$route;
       const { meta, path } = route;
       // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) {
-        return meta.activeMenu;
+      if (meta.activeMenuId) {
+        return meta.activeMenuId;
       }
       return path;
     },

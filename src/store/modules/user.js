@@ -1,7 +1,7 @@
 import { login, logout, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter, asyncRoutes } from "@/router";
-import { isDefstr, generateTreeMap } from "@/utils/index";
+import { isDefStr, generateTreeMap } from "@/utils/index";
 import intersection from "lodash/intersection";
 const state = {
   token: getToken(),
@@ -36,7 +36,7 @@ const actions = {
       login(userInfo)
         .then(({ data }) => {
           console.log(data);
-          if (isDefstr(data.certificate)) {
+          if (isDefStr(data.certificate)) {
             commit("SET_TOKEN", data.certificate);
             setToken(data.certificate);
             resolve();
@@ -60,24 +60,23 @@ const actions = {
             return;
           }
 
-          const serveDeeps = generateTreeMap(data, "menuId");
-          const routesDeeps = generateTreeMap(asyncRoutes, "menuId");
+          const serveTreeMap = generateTreeMap(data, "menuId");
+          const routesTreeMap = generateTreeMap(asyncRoutes, "menuId");
 
-          const config = intersection(
-            Array.from(serveDeeps.keys()),
-            Array.from(routesDeeps.keys())
+          const collection = intersection(
+            Array.from(serveTreeMap.keys()),
+            Array.from(routesTreeMap.keys())
           );
 
-          for (const menuId of config) {
-            serveDeeps.get(menuId).hrefName = routesDeeps.get(menuId).name;
-            routesDeeps.get(menuId).meta.authority = serveDeeps.get(
+          for (const menuId of collection) {
+            routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
               menuId
             ).authority;
           }
 
-          commit("SET_ROLE_IDS", config);
+          commit("SET_ROLE_IDS", collection);
           commit("SET_NAVIGATION", Object.freeze(data));
-          resolve(config);
+          resolve({ collection, routesTreeMap });
         })
         .catch(error => {
           reject(error);

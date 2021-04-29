@@ -4,11 +4,22 @@ import {
   NoVerificationRoutes,
   asyncRoutes
 } from "@/router";
-import { treeFilter } from "@/utils/index";
+
+function treeFilter(tree, func) {
+  return tree
+    .map(node => ({ ...node }))
+    .filter(node => {
+      if (node.children) {
+        node.children = treeFilter(node.children, func);
+      }
+      return func(node);
+    });
+}
+
 const state = {
   routes: [],
   addRoutes: [],
-  menuMap: {}
+  menuMap: null
 };
 
 const mutations = {
@@ -22,21 +33,26 @@ const mutations = {
 };
 
 const actions = {
-  generateRoutes({ commit }, config) {
+  generateRoutes({ commit }, { collection, routesTreeMap }) {
     return new Promise(resolve => {
       let filterRouteTree = treeFilter(asyncRoutes, function(node) {
         if (node.children) {
           return true;
         } else {
-          return config.includes(node.menuId);
+          if (collection.includes(node.menuId) && node.name) {
+            return true;
+          } else {
+            return false;
+          }
         }
       });
-      commit("SET_ROUTES", []);
 
       publicRoutes.children = filterRouteTree;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
 
-      console.log(realRoutes, "realRoutes");
+      commit("SET_MAP", routesTreeMap);
+      commit("SET_ROUTES", realRoutes);
+
       resolve(realRoutes);
     });
   }
