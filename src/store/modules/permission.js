@@ -36,17 +36,23 @@ const actions = {
   generateRoutes({ commit }, { collection, routesTreeMap }) {
     return new Promise(resolve => {
       let filterRouteTree = treeFilter(asyncRoutes, function(node) {
-        if (node.children) {
+        if (node.children && node.children.length) {
           return true;
+        } else if (node.children && !node.children.length) {
+          return false;
         } else {
-          if (collection.includes(node.menuId) && node.name) {
+          if (
+            node.meta &&
+            node.meta.menuId &&
+            collection.includes(node.meta.menuId)
+          ) {
             return true;
           } else {
             return false;
           }
         }
       });
-
+      console.log(filterRouteTree, "filterRouteTree");
       publicRoutes.children = filterRouteTree;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
 

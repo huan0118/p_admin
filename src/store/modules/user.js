@@ -1,8 +1,31 @@
 import { login, logout, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter, asyncRoutes } from "@/router";
-import { isDefStr, generateTreeMap } from "@/utils/index";
+import { isDefStr } from "@/utils/index";
 import intersection from "lodash/intersection";
+
+/**
+ * @param {Array} tree
+ * @returns {Map} Map
+ */
+function generateTreeMap(tree, key, deep = new Map()) {
+  if (!key) {
+    console.warn("key is Must");
+    return deep;
+  }
+  tree.forEach(item => {
+    item.children && generateTreeMap(item.children, key, deep);
+    if (!item.children || !item.children.length) {
+      if (item.meta) {
+        deep.set(item.meta[key], item);
+      } else {
+        deep.set(item[key], item);
+      }
+    }
+  });
+  return deep;
+}
+
 const state = {
   token: getToken(),
   name: "",
@@ -63,8 +86,9 @@ const actions = {
           const serveTreeMap = generateTreeMap(data, "menuId");
           const routesTreeMap = generateTreeMap(asyncRoutes, "menuId");
 
+          const serveCollection = Array.from(serveTreeMap.keys());
           const collection = intersection(
-            Array.from(serveTreeMap.keys()),
+            serveCollection,
             Array.from(routesTreeMap.keys())
           );
 
@@ -74,7 +98,7 @@ const actions = {
             ).authority;
           }
 
-          commit("SET_ROLE_IDS", collection);
+          commit("SET_ROLE_IDS", serveCollection);
           commit("SET_NAVIGATION", Object.freeze(data));
           resolve({ collection, routesTreeMap });
         })

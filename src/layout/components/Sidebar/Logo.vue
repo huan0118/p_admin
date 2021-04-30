@@ -9,7 +9,7 @@
       >
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1 v-else class="sidebar-title">
-          {{ title }}
+          P
         </h1>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
@@ -55,7 +55,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #1e90c2;
+  background: #126e82;
   text-align: center;
   overflow: hidden;
 

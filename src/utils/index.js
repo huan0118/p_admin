@@ -134,21 +134,3 @@ export function param2Obj(url) {
       '"}'
   );
 }
-
-/**
- * @param {Array} tree
- * @returns {Map} Map
- */
-export function generateTreeMap(tree, key, deep = new Map()) {
-  if (!key) {
-    console.warn("key is Must");
-    return deep;
-  }
-  tree.forEach(item => {
-    item.children && generateTreeMap(item.children, key, deep);
-    if (!item.children) {
-      deep.set(item[key], item);
-    }
-  });
-  return deep;
-}

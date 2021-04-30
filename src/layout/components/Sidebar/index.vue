@@ -34,12 +34,12 @@ export default {
     ...mapGetters(["navigation", "sidebar"]),
     activeMenuId() {
       const route = this.$route;
-      const { meta, path } = route;
+      const { menuId, activeMenuId } = route.meta;
       // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenuId) {
-        return meta.activeMenuId;
+      if (activeMenuId) {
+        return activeMenuId;
       }
-      return path;
+      return menuId + "";
     },
     showLogo() {
       return this.$store.state.settings.sidebarLogo;

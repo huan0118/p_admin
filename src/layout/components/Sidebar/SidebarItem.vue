@@ -29,7 +29,6 @@
 </template>
 
 <script>
-// import path from "path";
 import Item from "./Item";
 import RLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
@@ -69,9 +68,9 @@ export default {
         }
       });
 
-      // Show parent if there are no child router to display
-      if (showingChildren.length === 0) {
-        this.onlyOneChild = { ...parent, childrenAllHide: true };
+      // levelId = 1 合并子导航
+      if (parent.levelId === 1 && showingChildren.length === 1) {
+        this.onlyOneChild = { ...children[0], onlyOne: true };
         return true;
       }
       return false;

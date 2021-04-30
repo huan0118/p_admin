@@ -1,3 +1,9 @@
+/*
+ * @Author: liuhuan
+ * @Date: 2020-11-02 20:05:36
+ * @LastEditors: liuhuan 1641186065@qq.com
+ * @LastEditTime: 2021-04-30 16:08:08
+ */
 import { router } from "./router";
 import store from "./store";
 import { Message } from "element-ui";
@@ -33,8 +39,6 @@ router.beforeEach(async (to, from, next) => {
         try {
           // 获取用户信息
           const config = await store.dispatch("user/getInfo");
-          console.log(config, "Config");
-          // generate accessible routes map based on ids
           const accessRoutes = await store.dispatch(
             "permission/generateRoutes",
             config

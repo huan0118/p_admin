@@ -72,18 +72,17 @@ export const asyncRoutes = [
     path: "",
     name: "Home",
     meta: {
-      affix: true
+      affix: true,
+      menuId: 3001,
+      title: "首页"
     },
-    menuId: 3001,
     component: () => import(/* webpackChunkName: "Home" */ "../views/Home.vue")
   },
 
   {
     path: "about",
     name: "About",
-    meta: {
-      affix: true
-    },
+    meta: {},
     component: () =>
       import(/* webpackChunkName: "About" */ "../views/About.vue"),
     children: [
@@ -91,9 +90,9 @@ export const asyncRoutes = [
         path: "resources",
         name: "Resources",
         meta: {
-          affix: true
+          affix: true,
+          menuId: 3002
         },
-        menuId: 3002,
         component: () =>
           import(
             /* webpackChunkName: "Resources" */ "../views/resources/index.vue"

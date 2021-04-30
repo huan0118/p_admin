@@ -9,7 +9,7 @@
     <div class="main-container" :class="{ hasTagsView: needTagsView }">
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
-        <!-- <tags-view v-if="needTagsView" /> -->
+        <tags-view v-if="needTagsView" />
       </div>
       <app-main />
     </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain } from "./components";
+import { Navbar, Sidebar, AppMain, TagsView } from "./components";
 import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
@@ -25,8 +25,8 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain
-    // TagsView
+    AppMain,
+    TagsView
   },
   mixins: [ResizeMixin],
   computed: {
