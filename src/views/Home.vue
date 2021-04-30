@@ -1,17 +1,13 @@
 <template>
   <div class="home">
     首页
+
+    {{ this.$route.meta.authority }}
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
-  name: "Index",
-  components: {},
-  methods: {
-    handleClick() {}
-  }
+  name: "Home"
 };
 </script>

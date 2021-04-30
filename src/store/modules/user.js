@@ -1,14 +1,37 @@
 import { login, logout, getInfo } from "@/api/user";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { resetRouter, asyncRoutes } from "@/router";
-import { flat, flatObject, isDefstr } from "@/utils/index";
+import { isDefStr } from "@/utils/index";
 import intersection from "lodash/intersection";
+
+/**
+ * @param {Array} tree
+ * @returns {Map} Map
+ */
+function generateTreeMap(tree, key, deep = new Map()) {
+  if (!key) {
+    console.warn("key is Must");
+    return deep;
+  }
+  tree.forEach(item => {
+    item.children && generateTreeMap(item.children, key, deep);
+    if (!item.children || !item.children.length) {
+      if (item.meta) {
+        deep.set(item.meta[key], item);
+      } else {
+        deep.set(item[key], item);
+      }
+    }
+  });
+  return deep;
+}
+
 const state = {
   token: getToken(),
   name: "",
   avatar: "",
   ids: [],
-  NAVIGATION: [] //导航数据
+  navigation: [] //导航数据
 };
 
 const mutations = {
@@ -25,7 +48,7 @@ const mutations = {
     state.ids = ids;
   },
   SET_NAVIGATION: (state, payload) => {
-    state.NAVIGATION = payload;
+    state.navigation = payload;
   }
 };
 
@@ -36,7 +59,7 @@ const actions = {
       login(userInfo)
         .then(({ data }) => {
           console.log(data);
-          if (isDefstr(data.certificate)) {
+          if (isDefStr(data.certificate)) {
             commit("SET_TOKEN", data.certificate);
             setToken(data.certificate);
             resolve();
@@ -51,35 +74,33 @@ const actions = {
     });
   },
 
-  // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token)
         .then(({ data }) => {
-          console.log(data, "getInfo");
           if (!data) {
-            reject(new Error("验证失败, 请重新登入"));
-            return;
-          }
-          const nav = flat(data)
-            .map(e => +e.menuId)
-            .sort();
-          const webs = flat(asyncRoutes)
-            .map(e => +e.Identification)
-            .sort();
-          // 交集
-          const ids = intersection(nav, webs);
-
-          const map = flatObject(data);
-          // ids must be a non-empty array
-          if (!ids || ids.length <= 0) {
-            reject(new Error("getInfo: ids must be a non-null array!"));
+            reject(new Error("用户信息获取失败, 请重新登入"));
             return;
           }
 
-          commit("SET_ROLE_IDS", ids);
+          const serveTreeMap = generateTreeMap(data, "menuId");
+          const routesTreeMap = generateTreeMap(asyncRoutes, "menuId");
+
+          const serveCollection = Array.from(serveTreeMap.keys());
+          const collection = intersection(
+            serveCollection,
+            Array.from(routesTreeMap.keys())
+          );
+
+          for (const menuId of collection) {
+            routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
+              menuId
+            ).authority;
+          }
+
+          commit("SET_ROLE_IDS", serveCollection);
           commit("SET_NAVIGATION", Object.freeze(data));
-          resolve(Object.freeze({ ids, map }));
+          resolve({ collection, routesTreeMap });
         })
         .catch(error => {
           reject(error);

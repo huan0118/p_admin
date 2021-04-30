@@ -1,3 +1,9 @@
+/*
+ * @Author: liuhuan
+ * @Date: 2020-11-02 20:05:36
+ * @LastEditors: liuhuan 1641186065@qq.com
+ * @LastEditTime: 2021-04-30 16:08:08
+ */
 import { router } from "./router";
 import store from "./store";
 import { Message } from "element-ui";
@@ -8,38 +14,34 @@ import getPageTitle from "@/utils/get-page-title";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const whiteList = ["/login"]; // no redirect whitelist
+const whiteList = ["/login"]; // 白名单
 
 router.beforeEach(async (to, from, next) => {
-  // start progress bar
   NProgress.start();
 
   // set page title
   document.title = getPageTitle(to.meta.title);
 
-  // determine whether the user has logged in
+  // 用token来标识用户是否登入
   const hasToken = getToken();
-  // console.log(hasToken, 'hasToken', to)
   if (hasToken) {
     if (to.path === "/login") {
-      // if is logged in, redirect to the home page
+      // 防止用户手动返回
       next({ path: "/" });
       NProgress.done();
     } else {
-      // determine whether the user has obtained his permission ids through getInfo
-      const hasRoles = store.getters.ids && store.getters.ids.length > 0;
-      // console.log(hasRoles, 'hasRoles')
+      // 判断用户是否通过getInfo获取了权限id 用户不刷新的前提下只会获取一次用户信息
+      const hasRoles =
+        store.getters.menuIds && store.getters.menuIds.length > 0;
       if (hasRoles) {
         next();
       } else {
         try {
-          // get user info
-          // note: ids must be a object array! tree ids
-          const assemble = await store.dispatch("user/getInfo");
-          // generate accessible routes map based on ids
+          // 获取用户信息
+          const config = await store.dispatch("user/getInfo");
           const accessRoutes = await store.dispatch(
             "permission/generateRoutes",
-            assemble
+            config
           );
 
           // dynamically add accessible routes

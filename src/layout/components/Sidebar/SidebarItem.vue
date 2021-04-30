@@ -1,8 +1,8 @@
 <template>
   <div v-if="!item.hidden" class="menu-wrapper">
     <template v-if="hasOneShowingChild(item.children, item)">
-      <r-link v-if="onlyOneChild.menuId" :to="resolveLink(onlyOneChild)">
-        <el-menu-item :index="resolvePath(onlyOneChild)">
+      <r-link v-if="onlyOneChild.menuId" :to="resolveTo(onlyOneChild)">
+        <el-menu-item :index="'' + onlyOneChild.menuId">
           <item :title="onlyOneChild.menuName + '|' + onlyOneChild.menuId" />
         </el-menu-item>
       </r-link>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import path from "path";
 import Item from "./Item";
 import RLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
@@ -42,10 +41,6 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    baseMenuId: {
-      type: [String, Number],
-      default: ""
     }
   },
   computed: {
@@ -57,9 +52,7 @@ export default {
     // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
     // TODO: refactor with render function
     this.onlyOneChild = null;
-    return {
-      // onlyOneChild: null
-    };
+    return {};
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
@@ -75,28 +68,20 @@ export default {
         }
       });
 
-      // Show parent if there are no child router to display
-      if (showingChildren.length === 0) {
-        this.onlyOneChild = { ...parent, childrenAllHide: true };
+      // levelId = 1 合并子导航
+      if (parent.levelId === 1 && showingChildren.length === 1) {
+        this.onlyOneChild = { ...children[0], onlyOne: true };
         return true;
       }
       return false;
     },
-    resolveLink(data) {
-      let value = this.menuMap[data.menuId];
-      if (value) {
-        return path.resolve("/", value.path);
-      } else {
-        return path.resolve("/", "404");
-      }
-    },
-    resolvePath(data) {
-      let value = this.menuMap[data.menuId];
-      if (value) {
-        return path.resolve("/", value.path);
-      } else {
-        return String(data.menuId);
-      }
+    resolveTo(data) {
+      let { menuMap } = this;
+      return menuMap
+        ? menuMap.get(data.menuId)
+          ? menuMap.get(data.menuId)
+          : "ErrPage"
+        : "ErrPage";
     }
   }
 };

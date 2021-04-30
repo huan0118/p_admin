@@ -1,16 +1,13 @@
 /* eslint-disable no-unused-vars */
 const Mock = require("mockjs");
-const { deepClone } = require("../utils");
-const { treeRoutes } = require("./routes.js");
+const { permissions } = require("./routes.js");
 
-const routes = deepClone(treeRoutes);
 function rolesFilter(query, treeRoutes) {
   let res = null;
   for (const iterator of treeRoutes) {
     if (iterator.authority) {
       for (const item of iterator.authority) {
-        if (item.responsibilityId === +query.responsibilityId) {
-          console.log(item);
+        if (item.responsibilityId === query.responsibilityId) {
           return item;
         }
       }
@@ -31,20 +28,7 @@ module.exports = [
     response: _ => {
       return {
         code: 20000,
-        data: routes
-      };
-    }
-  },
-  // mock get all roles form server
-  {
-    url: "/power-admin/query/roles",
-    type: "get",
-    response: _ => {
-      // console.log(_.query);
-      let res = rolesFilter(_.query, deepClone(treeRoutes));
-      return {
-        code: 20000,
-        data: res
+        data: permissions
       };
     }
   },
