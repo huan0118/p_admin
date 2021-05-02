@@ -90,7 +90,6 @@ export const asyncRoutes = [
         path: "resources",
         name: "Resources",
         meta: {
-          affix: true,
           menuId: 3002
         },
         component: () =>

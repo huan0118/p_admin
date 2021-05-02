@@ -52,7 +52,6 @@ const actions = {
           }
         }
       });
-      console.log(filterRouteTree, "filterRouteTree");
       publicRoutes.children = filterRouteTree;
       const realRoutes = [publicRoutes, ...NoVerificationRoutes];
 

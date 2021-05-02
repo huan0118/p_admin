@@ -6,9 +6,9 @@
       @scroll="handleScroll"
     >
       <router-link
-        v-for="tag in visitedViews"
+        v-for="(tag, index) in visitedViews"
         ref="tag"
-        :key="tag.path"
+        :key="index"
         :class="isActive(tag) ? 'active' : ''"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
         tag="span"
@@ -111,7 +111,6 @@ export default {
     },
     initTags() {
       const affixTags = (this.affixTags = this.filterAffixTags(this.routes));
-      console.log(affixTags, "affixTags");
       for (const tag of affixTags) {
         // Must have tag name
         if (tag.name) {
@@ -161,7 +160,9 @@ export default {
         });
     },
     closeOthersTags() {
-      this.$router.push(this.selectedTag);
+      if (!this.isActive(this.selectedTag)) {
+        this.$router.push(this.selectedTag);
+      }
       this.$store
         .dispatch("tagsView/delOthersViews", this.selectedTag)
         .then(() => {

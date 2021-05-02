@@ -58,7 +58,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       login(userInfo)
         .then(({ data }) => {
-          console.log(data);
           if (isDefStr(data.certificate)) {
             commit("SET_TOKEN", data.certificate);
             setToken(data.certificate);

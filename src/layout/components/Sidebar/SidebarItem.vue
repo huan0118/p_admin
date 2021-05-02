@@ -3,7 +3,7 @@
     <template v-if="hasOneShowingChild(item.children, item)">
       <r-link v-if="onlyOneChild.menuId" :to="resolveTo(onlyOneChild)">
         <el-menu-item :index="'' + onlyOneChild.menuId">
-          <item :title="onlyOneChild.menuName + '|' + onlyOneChild.menuId" />
+          <item :title="onlyOneChild.menuName" />
         </el-menu-item>
       </r-link>
     </template>
@@ -15,7 +15,7 @@
       popper-append-to-body
     >
       <template slot="title">
-        <item v-if="item.menuId" :title="item.menuName + '|' + item.menuId" />
+        <item v-if="item.menuId" :title="item.menuName" />
       </template>
       <sidebar-item
         v-for="child in item.children"

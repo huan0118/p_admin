@@ -5,12 +5,13 @@ const state = {
 
 const mutations = {
   ADD_VISITED_VIEW: (state, view) => {
-    if (state.visitedViews.some(v => v.path === view.path)) return;
-    state.visitedViews.push(
-      Object.assign({}, view, {
-        title: view.meta.title || "no-name"
-      })
-    );
+    if (state.visitedViews.some(v => v.name === view.name)) return;
+    let any = Object.assign({}, view, {
+      title: view.meta.title || "no-name"
+    });
+    // bug
+    delete any.matched;
+    state.visitedViews.push(any);
   },
   ADD_CACHED_VIEW: (state, view) => {
     if (state.cachedViews.includes(view.name)) return;
@@ -21,7 +22,7 @@ const mutations = {
 
   DEL_VISITED_VIEW: (state, view) => {
     for (const [i, v] of state.visitedViews.entries()) {
-      if (v.path === view.path) {
+      if (v.name === view.name) {
         state.visitedViews.splice(i, 1);
         break;
       }
@@ -34,7 +35,7 @@ const mutations = {
 
   DEL_OTHERS_VISITED_VIEWS: (state, view) => {
     state.visitedViews = state.visitedViews.filter(v => {
-      return v.meta.affix || v.path === view.path;
+      return v.meta.affix || v.name === view.name;
     });
   },
   DEL_OTHERS_CACHED_VIEWS: (state, view) => {
@@ -58,7 +59,7 @@ const mutations = {
 
   UPDATE_VISITED_VIEW: (state, view) => {
     for (let v of state.visitedViews) {
-      if (v.path === view.path) {
+      if (v.name === view.name) {
         v = Object.assign(v, view);
         break;
       }
