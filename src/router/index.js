@@ -12,7 +12,6 @@ Vue.use(VueRouter);
  *
  *
  * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               delete !!!
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * menuId                         The only sign (asyncRoutes must set!!!)
  * meta : {
@@ -20,7 +19,7 @@ Vue.use(VueRouter);
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
     affix: true                  if set true, the tag will affix in the tags-view
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+    activeMenuId: '3000'         if set menuId, the sidebar will highlight the path you set
   }
  */
 

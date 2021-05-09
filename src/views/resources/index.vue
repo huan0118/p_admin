@@ -1,5 +1,30 @@
 <template>
   <div class="resources">
+    <el-row>
+      <el-col :span="12">
+        <el-select v-model="value" placeholder="请选择权限">
+          <el-option
+            v-for="item in this.$route.meta.authority"
+            :key="item.value"
+            :label="item.responsibilityName"
+            :value="item.responsibilityId"
+          >
+          </el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="12">
+        <el-button-group>
+          <el-button
+            v-for="(btn, index) in btnGroup"
+            :key="index"
+            type="primary"
+            icon="el-icon-edit"
+            >{{ btn.name }}</el-button
+          >
+        </el-button-group>
+      </el-col>
+    </el-row>
+
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="explain" label="展示说明" width="180">
       </el-table-column>
@@ -17,21 +42,28 @@ export default {
   name: "Resources",
   data() {
     return {
-      tableData: []
+      tableData: [],
+      value: ""
     };
   },
   created() {
     this.initData();
   },
+  computed: {
+    btnGroup() {
+      if (this.value) {
+        return this.$route.meta.authority.find(
+          e => e.responsibilityId === this.value
+        ).resource;
+      } else {
+        return [];
+      }
+    }
+  },
   methods: {
-    initData() {
-      getResources()
-        .then(({ data }) => {
-          this.tableData = data;
-        })
-        .catch(err => {
-          console.warn(err);
-        });
+    async initData() {
+      let { data = [] } = await getResources();
+      this.tableData = data;
     }
   },
   components: {}
