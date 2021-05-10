@@ -101,6 +101,18 @@ export const asyncRoutes = [
           import(
             /* webpackChunkName: "Resources" */ "../views/resources/index.vue"
           )
+      },
+      {
+        path: "responsibility",
+        name: "Responsibility",
+        meta: {
+          menuId: 3000,
+          title: "职能"
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "Resources" */ "../views/responsibility/index.vue"
+          )
       }
     ]
   }

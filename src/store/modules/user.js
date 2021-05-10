@@ -8,20 +8,19 @@ import intersection from "lodash/intersection";
  * @param {Array} tree
  * @returns {Map} Map
  */
-function generateTreeMap(tree, key, deep = new Map()) {
-  if (!key) {
-    console.warn("key is Must");
+function generateTreeMap(tree, func, deep = new Map()) {
+  if (!func) {
+    console.warn("func is Must");
     return deep;
   }
   tree.forEach(item => {
-    item.children && generateTreeMap(item.children, key, deep);
-    if (!item.children || !item.children.length) {
-      if (item.meta) {
-        deep.set(item.meta[key], item);
-      } else {
-        deep.set(item[key], item);
-      }
+    let flag = func(item, deep);
+    console.log(item, "s");
+    if (flag) {
+      return;
     }
+
+    item.children && generateTreeMap(item.children, func, deep);
   });
   return deep;
 }
@@ -82,8 +81,32 @@ const actions = {
             return;
           }
 
-          const serveTreeMap = generateTreeMap(data, "menuId");
-          const routesTreeMap = generateTreeMap(asyncRoutes, "menuId");
+          const serveTreeMap = generateTreeMap(data, function(row, deep) {
+            if (row.children && row.children.length) {
+              const showingChildren = row.children.filter(item => {
+                if (item.hidden) {
+                  return false;
+                } else {
+                  return true;
+                }
+              });
+
+              if (!showingChildren.length) {
+                deep.set(row.menuId, row);
+                return true;
+              }
+            } else {
+              deep.set(row.menuId, row);
+            }
+          });
+          const routesTreeMap = generateTreeMap(asyncRoutes, function(
+            row,
+            deep
+          ) {
+            if (!row.children || !row.children.length) {
+              deep.set(row.meta.menuId, row);
+            }
+          });
 
           const serveCollection = Array.from(serveTreeMap.keys());
           const routesCollection = Array.from(routesTreeMap.keys());

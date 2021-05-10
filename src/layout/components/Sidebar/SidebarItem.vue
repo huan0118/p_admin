@@ -68,6 +68,10 @@ export default {
         }
       });
 
+      if (!showingChildren.length) {
+        this.onlyOneChild = { ...parent, childrenAllHide: true };
+        return true;
+      }
       // levelId = 1 合并子导航
       if (parent.levelId === 1 && showingChildren.length === 1) {
         this.onlyOneChild = { ...children[0], onlyOne: true };

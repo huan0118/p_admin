@@ -6,12 +6,26 @@ const permissions = [
     menuName: "一级菜单",
     menuParentId: 0,
     icon: "P",
+    authority: [
+      {
+        responsibilityName: "新增权限",
+        responsibilityId: 1,
+        resource: [
+          {
+            id: 1614005,
+            name: "新增",
+            type: "buttons"
+          }
+        ]
+      }
+    ],
     children: [
       {
         levelId: 2,
         menuId: 3001,
         menuName: "二级菜单 2-1",
         menuParentId: 3000,
+        hidden: true,
         authority: [
           {
             responsibilityName: "新增权限",
@@ -31,6 +45,7 @@ const permissions = [
         menuId: 3002,
         menuName: "二级菜单 2-2",
         menuParentId: 3000,
+        hidden: true,
         authority: [
           {
             responsibilityName: "修改权限",
@@ -68,6 +83,77 @@ const permissions = [
       }
     ]
   },
+
+  {
+    levelId: 1,
+    menuId: 4000,
+    menuName: "权限管理",
+    menuParentId: 0,
+    icon: "P",
+    children: [
+      {
+        levelId: 2,
+        menuId: 4001,
+        menuName: "权限管理 2-1",
+        menuParentId: 4000,
+        authority: [
+          {
+            responsibilityName: "新增权限",
+            responsibilityId: 1,
+            resource: [
+              {
+                id: 1614005,
+                name: "新增",
+                type: "buttons"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        levelId: 2,
+        menuId: 4002,
+        menuName: "权限管理 2-2",
+        menuParentId: 4000,
+        hidden: true,
+        authority: [
+          {
+            responsibilityName: "修改权限",
+            responsibilityId: 10,
+            resource: [
+              {
+                id: 1614006,
+                name: "修改",
+                type: "buttons"
+              }
+            ]
+          },
+          {
+            responsibilityName: "混合权限",
+            responsibilityId: 100,
+            resource: [
+              {
+                id: 1614005,
+                name: "新增",
+                type: "buttons"
+              },
+              {
+                id: 1614006,
+                name: "修改",
+                type: "buttons"
+              },
+              {
+                id: 1614007,
+                name: "导出",
+                type: "buttons"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
   {
     levelId: 1,
     menuId: 9999,
