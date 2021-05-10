@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import layout from "../layout/index";
 import login from "@/views/login/index";
 import errPage from "@/views/error-page/404";
+import redirect from "../layout/redirect/index";
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ export const constantRoutes = [
     path: "/404",
     name: "ErrPage",
     component: errPage
+  },
+  {
+    path: "/redirect/:path(.*)",
+    component: redirect,
+    name: "Redirect"
   }
 ];
 

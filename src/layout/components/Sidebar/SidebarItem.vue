@@ -3,7 +3,7 @@
     <template v-if="hasOneShowingChild(item.children, item)">
       <r-link v-if="onlyOneChild.menuId" :to="resolveTo(onlyOneChild)">
         <el-menu-item :index="'' + onlyOneChild.menuId">
-          <item :title="onlyOneChild.menuName" />
+          <item :icon="onlyOneChild.icon" :title="onlyOneChild.menuName" />
         </el-menu-item>
       </r-link>
     </template>
@@ -15,7 +15,7 @@
       popper-append-to-body
     >
       <template slot="title">
-        <item v-if="item.menuId" :title="item.menuName" />
+        <item :icon="item.icon" v-if="item.menuId" :title="item.menuName" />
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -32,7 +32,7 @@
 import Item from "./Item";
 import RLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
-
+import { isExternal } from "@/utils/validate";
 export default {
   name: "SidebarItem",
   components: { Item, RLink },
@@ -76,12 +76,16 @@ export default {
       return false;
     },
     resolveTo(data) {
-      let { menuMap } = this;
-      return menuMap
-        ? menuMap.get(data.menuId)
+      if (data.path && isExternal(data.path)) {
+        return data.path;
+      } else {
+        let { menuMap } = this;
+        return menuMap
           ? menuMap.get(data.menuId)
-          : "ErrPage"
-        : "ErrPage";
+            ? menuMap.get(data.menuId)
+            : "ErrPage"
+          : "ErrPage";
+      }
     }
   }
 };

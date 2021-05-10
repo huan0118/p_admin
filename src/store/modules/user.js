@@ -86,12 +86,14 @@ const actions = {
           const routesTreeMap = generateTreeMap(asyncRoutes, "menuId");
 
           const serveCollection = Array.from(serveTreeMap.keys());
-          const collection = intersection(
+          const routesCollection = Array.from(routesTreeMap.keys());
+
+          const intersectionCollection = intersection(
             serveCollection,
-            Array.from(routesTreeMap.keys())
+            routesCollection
           );
 
-          for (const menuId of collection) {
+          for (const menuId of intersectionCollection) {
             routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
               menuId
             ).authority;
@@ -99,7 +101,7 @@ const actions = {
 
           commit("SET_ROLE_IDS", serveCollection);
           commit("SET_NAVIGATION", Object.freeze(data));
-          resolve({ collection, routesTreeMap });
+          resolve({ collection: intersectionCollection, routesTreeMap });
         })
         .catch(error => {
           reject(error);

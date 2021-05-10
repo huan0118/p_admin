@@ -5,6 +5,7 @@ const permissions = [
     menuId: 3000,
     menuName: "一级菜单",
     menuParentId: 0,
+    icon: "P",
     children: [
       {
         levelId: 2,
@@ -66,6 +67,14 @@ const permissions = [
         ]
       }
     ]
+  },
+  {
+    levelId: 1,
+    menuId: 9999,
+    menuName: "外部链接",
+    menuParentId: 0,
+    icon: "Link",
+    path: "https://cn.bing.com/"
   }
 ];
 
