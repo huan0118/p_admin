@@ -1,12 +1,16 @@
 <template>
   <div class="responsibility">
-    {{ this.$route.meta }}
+    {{ meta }}
   </div>
 </template>
 
 <script>
 export default {
   name: "Responsibility",
-  components: {}
+  computed: {
+    meta() {
+      return this.$route.meta;
+    }
+  }
 };
 </script>

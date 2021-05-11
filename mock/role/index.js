@@ -28,7 +28,8 @@ module.exports = [
     response: _ => {
       return {
         code: 20000,
-        data: permissions
+        data: permissions,
+        info: { name: Mock.Random.cname() }
       };
     }
   },

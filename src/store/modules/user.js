@@ -15,7 +15,6 @@ function generateTreeMap(tree, func, deep = new Map()) {
   }
   tree.forEach(item => {
     let flag = func(item, deep);
-    console.log(item, "s");
     if (flag) {
       return;
     }
@@ -48,6 +47,16 @@ const mutations = {
   },
   SET_NAVIGATION: (state, payload) => {
     state.navigation = payload;
+  },
+  SET_AUTHORITY: (
+    state,
+    { intersectionCollection, routesTreeMap, serveTreeMap }
+  ) => {
+    for (const menuId of intersectionCollection) {
+      routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
+        menuId
+      ).authority;
+    }
   }
 };
 
@@ -75,7 +84,7 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token)
-        .then(({ data }) => {
+        .then(({ data, info }) => {
           if (!data) {
             reject(new Error("用户信息获取失败, 请重新登入"));
             return;
@@ -116,12 +125,19 @@ const actions = {
             routesCollection
           );
 
-          for (const menuId of intersectionCollection) {
-            routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
-              menuId
-            ).authority;
-          }
+          // for (const menuId of intersectionCollection) {
+          //   routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
+          //     menuId
+          //   ).authority;
+          // }
 
+          commit("SET_AUTHORITY", {
+            intersectionCollection,
+            routesTreeMap,
+            serveTreeMap
+          });
+
+          commit("SET_NAME", info.name);
           commit("SET_ROLE_IDS", serveCollection);
           commit("SET_NAVIGATION", Object.freeze(data));
           resolve({ collection: intersectionCollection, routesTreeMap });
@@ -139,6 +155,9 @@ const actions = {
         .then(() => {
           commit("SET_TOKEN", "");
           commit("SET_ROLE_IDS", []);
+          commit("SET_NAVIGATION", []);
+          commit("permission/SET_MAP", null, { root: true });
+          commit("permission/CLEAR_ROUTES", null, { root: true });
 
           removeToken();
           resetRouter();

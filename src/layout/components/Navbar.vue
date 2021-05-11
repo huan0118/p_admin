@@ -13,8 +13,7 @@
 
       <el-dropdown class="avatar-container" trigger="hover">
         <div class="avatar-wrapper">
-          <!-- <img src="../../assets/logo.png" class="user-avatar" /> -->
-          <i class="el-icon-caret-bottom" />
+          {{ name }}
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -43,7 +42,7 @@ export default {
     ErrorLog
   },
   computed: {
-    ...mapGetters(["sidebar", "avatar"])
+    ...mapGetters(["sidebar", "name"])
   },
   methods: {
     toggleSideBar() {
@@ -120,7 +119,10 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        // margin-top: 5px;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
         position: relative;
 
         .user-avatar {

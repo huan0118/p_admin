@@ -29,6 +29,10 @@ const mutations = {
   },
   SET_MAP: (state, payload) => {
     state.menuMap = payload;
+  },
+  CLEAR_ROUTES: state => {
+    state.routes = [];
+    state.addRoutes = [];
   }
 };
 
