@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="from-box">
       <div class="title-container">
-        <h3 class="title">RM</h3>
+        <h3 class="title">P</h3>
       </div>
 
       <el-form
@@ -14,7 +14,7 @@
       >
         <el-form-item prop="username">
           <span class="svg-container">
-            <svg-icon icon-class="user" />
+            <svg-icon icon-class="USER" />
           </span>
           <el-input
             ref="username"
@@ -36,7 +36,9 @@
           />
           <span class="show-pwd" @click.stop="hanleEye">
             <svg-icon
-              :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+              :icon-class="
+                passwordType === 'password' ? 'eye-close' : 'eye-open'
+              "
             />
           </span>
         </el-form-item>
