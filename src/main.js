@@ -11,6 +11,9 @@ import "@/styles/index.scss"; // global css
 
 import "./permission";
 
+import custom from "./plugins/custom.js";
+Vue.use(custom);
+
 Vue.config.productionTip = false;
 
 new Vue({

@@ -25,7 +25,7 @@ const permissions = [
         menuId: 3001,
         menuName: "二级菜单 2-1",
         menuParentId: 3000,
-        hidden: true,
+        hidden: false,
         authority: [
           {
             responsibilityName: "新增权限",
@@ -45,7 +45,7 @@ const permissions = [
         menuId: 3002,
         menuName: "二级菜单 2-2",
         menuParentId: 3000,
-        hidden: true,
+        hidden: false,
         authority: [
           {
             responsibilityName: "修改权限",
@@ -115,7 +115,7 @@ const permissions = [
         menuId: 4002,
         menuName: "权限管理 2-2",
         menuParentId: 4000,
-        hidden: true,
+        hidden: false,
         authority: [
           {
             responsibilityName: "修改权限",

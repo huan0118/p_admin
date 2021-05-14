@@ -2,15 +2,7 @@
   <div class="resources">
     <el-row>
       <el-col :span="12">
-        <el-select v-model="value" placeholder="请选择权限">
-          <el-option
-            v-for="item in this.$route.meta.authority"
-            :key="item.value"
-            :label="item.responsibilityName"
-            :value="item.responsibilityId"
-          >
-          </el-option>
-        </el-select>
+        <p-authority />
       </el-col>
       <el-col :span="12">
         <el-button-group>

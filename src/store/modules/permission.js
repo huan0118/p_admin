@@ -19,7 +19,8 @@ function treeFilter(tree, func) {
 const state = {
   routes: [],
   addRoutes: [],
-  menuMap: null
+  menuMap: null,
+  authorityMap: {}
 };
 
 const mutations = {
@@ -33,6 +34,9 @@ const mutations = {
   CLEAR_ROUTES: state => {
     state.routes = [];
     state.addRoutes = [];
+  },
+  SET_AUTHORITY_MAP: (state, { key, value }) => {
+    state.authorityMap[key] = value;
   }
 };
 

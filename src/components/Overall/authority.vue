@@ -1,32 +1,57 @@
 <script>
 export default {
   name: "Authority",
-  props: {
-    authorityBtns: {
-      type: Array,
-      default() {
-        return [];
-      }
+  data() {
+    return {
+      respId: ""
+    };
+  },
+  computed: {
+    authorityMap() {
+      return this.$store.state.permission.authorityMap;
     }
   },
   render(createElement) {
-    // const { authorityTokens } = context.props
-    const vnodes = [];
-    // console.log(this, Object.keys(this.$slots), this.authorityTokens.map((e) => e.btn_key))
-    const _slots = Object.keys(this.$slots);
-    console.log(
-      this.authorityBtns.map(e => e.resourceName),
-      _slots,
-      "createElement",
-      this.authorityBtns
+    const { authority = [], menuId } = this.$route.meta;
+    let hasCache = this.authorityMap[menuId];
+    if (hasCache) {
+      let node = authority.find(e => e.responsibilityId === hasCache);
+      this.respId = node ? node.responsibilityId : "";
+    } else {
+      this.respId = authority.length ? authority[0].responsibilityId : "";
+    }
+    //
+    let vnode = authority.map((e, index) =>
+      createElement("el-option", {
+        props: {
+          key: index,
+          label: e.responsibilityName,
+          value: e.responsibilityId
+        }
+      })
     );
 
-    for (const item of this.authorityBtns) {
-      if (_slots.includes(item.resourceCode)) {
-        vnodes.push(this.$slots[item.resourceCode]);
-      }
-    }
-    return createElement("span", vnodes);
+    return createElement(
+      "el-select",
+      {
+        props: {
+          value: this.respId
+        },
+        on: {
+          input: event => {
+            console.log("event", event);
+            this.respId = event;
+          },
+          change: val => {
+            this.$store.commit("permission/SET_AUTHORITY_MAP", {
+              key: menuId,
+              value: val
+            });
+          }
+        }
+      },
+      vnode
+    );
   }
 };
 </script>
