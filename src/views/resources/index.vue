@@ -1,19 +1,11 @@
 <template>
   <div class="resources">
-    <el-row>
+    <el-row class="pt5">
       <el-col :span="12">
         <p-authority />
       </el-col>
       <el-col :span="12">
-        <el-button-group>
-          <el-button
-            v-for="(btn, index) in btnGroup"
-            :key="index"
-            type="primary"
-            icon="el-icon-edit"
-            >{{ btn.name }}</el-button
-          >
-        </el-button-group>
+        <p-controlled class="fr" />
       </el-col>
     </el-row>
 
@@ -61,3 +53,13 @@ export default {
   components: {}
 };
 </script>
+
+<style lang="scss" scoped>
+.pt5 {
+  padding-bottom: 10px;
+}
+.resources {
+  background: #eee;
+  padding: 20px;
+}
+</style>

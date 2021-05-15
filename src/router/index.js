@@ -87,7 +87,9 @@ export const asyncRoutes = [
   {
     path: "about",
     name: "About",
-    meta: {},
+    meta: {
+      title: "关于"
+    },
     component: () =>
       import(/* webpackChunkName: "About" */ "../views/About.vue"),
     children: [
@@ -95,7 +97,8 @@ export const asyncRoutes = [
         path: "resources",
         name: "Resources",
         meta: {
-          menuId: 3002
+          menuId: 3002,
+          title: "详情"
         },
         component: () =>
           import(

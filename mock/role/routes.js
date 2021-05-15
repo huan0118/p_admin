@@ -5,7 +5,7 @@ const permissions = [
     menuId: 3000,
     menuName: "一级菜单",
     menuParentId: 0,
-    icon: "P",
+    icon: "permissions",
     authority: [
       {
         responsibilityName: "新增权限",
@@ -89,7 +89,7 @@ const permissions = [
     menuId: 4000,
     menuName: "权限管理",
     menuParentId: 0,
-    icon: "P",
+    icon: "permissions",
     children: [
       {
         levelId: 2,

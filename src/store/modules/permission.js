@@ -36,7 +36,12 @@ const mutations = {
     state.addRoutes = [];
   },
   SET_AUTHORITY_MAP: (state, { key, value }) => {
-    state.authorityMap[key] = value;
+    let obj = Object.create(null);
+    obj[key] = value;
+
+    state.authorityMap = Object.freeze(
+      Object.assign({}, state.authorityMap, obj)
+    );
   }
 };
 

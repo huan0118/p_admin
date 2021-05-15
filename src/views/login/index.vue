@@ -50,9 +50,9 @@
           >登录</el-button
         >
       </el-form>
-      <span class="wave" />
-      <span class="wave" />
-      <span class="wave" />
+      <!-- <span class="wave" /> -->
+      <!-- <span class="wave" /> -->
+      <!-- <span class="wave" /> -->
     </div>
   </div>
 </template>
@@ -185,7 +185,14 @@ $light_gray: white;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background: #3881c6;
+  background-color: #050505;
+  background-image: linear-gradient(
+    225deg,
+    #050505 0%,
+    #473625 50%,
+    #71410e 100%
+  );
+
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -197,11 +204,13 @@ $light_gray: white;
     background: #fff;
     border-radius: 5px;
     z-index: 99;
-    background: $loginBg;
+
+    background-color: #050505;
     background-image: linear-gradient(
-      darkblue,
-      rgba(255, 255, 255, 0) 80%,
-      rgba(255, 255, 255, 0.5)
+      225deg,
+      #71410e 0%,
+      #473625 50%,
+      #050505 100%
     );
     box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
     position: relative;

@@ -39,7 +39,6 @@ export default {
         },
         on: {
           input: event => {
-            console.log("event", event);
             this.respId = event;
           },
           change: val => {

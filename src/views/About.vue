@@ -4,3 +4,10 @@
     <router-view />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.about {
+  background: cadetblue;
+  padding: 20px;
+}
+</style>
