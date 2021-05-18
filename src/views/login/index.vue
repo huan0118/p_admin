@@ -50,9 +50,6 @@
           >登录</el-button
         >
       </el-form>
-      <!-- <span class="wave" /> -->
-      <!-- <span class="wave" /> -->
-      <!-- <span class="wave" /> -->
     </div>
   </div>
 </template>
@@ -185,13 +182,7 @@ $light_gray: white;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: #050505;
-  background-image: linear-gradient(
-    225deg,
-    #050505 0%,
-    #473625 50%,
-    #71410e 100%
-  );
+  background-color: #333333;
 
   overflow: hidden;
   display: flex;
@@ -205,48 +196,10 @@ $light_gray: white;
     border-radius: 5px;
     z-index: 99;
 
-    background-color: #050505;
-    background-image: linear-gradient(
-      225deg,
-      #71410e 0%,
-      #473625 50%,
-      #050505 100%
-    );
+    background-color: #1b1b1b;
     box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
-
-    span.wave {
-      z-index: 10;
-    }
-    .wave {
-      position: absolute;
-      top: -260px;
-      left: -100px;
-      width: 700px;
-      height: 700px;
-      background: deepskyblue;
-      border-radius: 43%;
-      filter: opacity(0.4);
-      animation: drift linear infinite;
-      transform-origin: 50% 48%;
-    }
-    .wave:nth-of-type(1) {
-      animation-duration: 5s;
-    }
-    .wave:nth-of-type(2) {
-      animation-duration: 7s;
-    }
-    .wave:nth-of-type(3) {
-      animation-duration: 9s;
-      background-color: orangered;
-      filter: opacity(0.1);
-    }
-    @keyframes drift {
-      from {
-        transform: rotate(360deg);
-      }
-    }
   }
 
   .login-form {
@@ -260,6 +213,8 @@ $light_gray: white;
     .login-btn {
       margin-top: 20px;
       border-radius: inherit;
+      background-color: #333333;
+      border-color: white;
     }
   }
 
