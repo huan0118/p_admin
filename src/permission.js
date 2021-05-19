@@ -1,9 +1,3 @@
-/*
- * @Author: liuhuan
- * @Date: 2020-11-02 20:05:36
- * @LastEditors: liuhuan 1641186065@qq.com
- * @LastEditTime: 2021-05-10 11:47:00
- */
 import { router } from "./router";
 import store from "./store";
 import { Message } from "element-ui";
@@ -31,8 +25,7 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done();
     } else {
       // 判断用户是否通过getInfo获取了权限id 用户不刷新的前提下只会获取一次用户信息
-      const hasRoles =
-        store.getters.menuIds && store.getters.menuIds.length > 0;
+      const hasRoles = store.getters.isSuccessGetInfo;
       if (hasRoles) {
         next();
       } else {

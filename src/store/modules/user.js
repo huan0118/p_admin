@@ -29,7 +29,8 @@ const state = {
   name: "",
   avatar: "",
   ids: [],
-  navigation: [] //导航数据
+  navigation: [], //导航数据
+  successGetInfo: false
 };
 
 const mutations = {
@@ -57,6 +58,9 @@ const mutations = {
         menuId
       ).authority;
     }
+  },
+  CHANGE_INFO_STATE: (state, payload) => {
+    state.successGetInfo = payload;
   }
 };
 
@@ -140,6 +144,7 @@ const actions = {
           commit("SET_NAME", info.name);
           commit("SET_ROLE_IDS", serveCollection);
           commit("SET_NAVIGATION", Object.freeze(data));
+          commit("CHANGE_INFO_STATE", true);
           resolve({ collection: intersectionCollection, routesTreeMap });
         })
         .catch(error => {
@@ -156,6 +161,7 @@ const actions = {
           commit("SET_TOKEN", "");
           commit("SET_ROLE_IDS", []);
           commit("SET_NAVIGATION", []);
+          commit("CHANGE_INFO_STATE", false);
           commit("permission/SET_MAP", null, { root: true });
           commit("permission/CLEAR_ROUTES", null, { root: true });
 
@@ -174,6 +180,7 @@ const actions = {
     return new Promise(resolve => {
       commit("SET_TOKEN", "");
       commit("SET_ROLE_IDS", []);
+      commit("CHANGE_INFO_STATE", false);
 
       removeToken();
       resolve();

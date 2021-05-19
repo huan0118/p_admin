@@ -78,26 +78,6 @@
   display: inline-flex !important;
 }
 
-.shoppic {
-  width: 80px;
-  height: 80px;
-}
-
-#Usermanagement {
-  .el-checkbox.is-bordered+.el-checkbox.is-bordered {
-    margin-left: 0px;
-  }
-  .el-checkbox{
-    margin-top: 10px;
-  }
-  .el-checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-  }
-}
-
 
 .el-form-item__label{
   font-size: 12px;

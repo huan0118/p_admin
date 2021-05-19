@@ -114,7 +114,7 @@ export const asyncRoutes = [
         },
         component: () =>
           import(
-            /* webpackChunkName: "Resources" */ "../views/responsibility/index.vue"
+            /* webpackChunkName: "Responsibility" */ "../views/responsibility/index.vue"
           )
       }
     ]
