@@ -129,12 +129,6 @@ const actions = {
             routesCollection
           );
 
-          // for (const menuId of intersectionCollection) {
-          //   routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
-          //     menuId
-          //   ).authority;
-          // }
-
           commit("SET_AUTHORITY", {
             intersectionCollection,
             routesTreeMap,

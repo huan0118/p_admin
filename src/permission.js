@@ -27,6 +27,16 @@ router.beforeEach(async (to, from, next) => {
       // 判断用户是否通过getInfo获取了权限id 用户不刷新的前提下只会获取一次用户信息
       const hasRoles = store.getters.isSuccessGetInfo;
       if (hasRoles) {
+        // 设置默认权责对应关系
+        const { menuId, authority = [] } = to.meta;
+        if (menuId) {
+          if (!store.state.permission.authorityMap[menuId]) {
+            store.commit("permission/SET_AUTHORITY_MAP", {
+              key: menuId,
+              value: authority[0].responsibilityId
+            });
+          }
+        }
         next();
       } else {
         try {

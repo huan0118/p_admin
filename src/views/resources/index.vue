@@ -8,7 +8,6 @@
         <p-controlled class="fr" />
       </el-col>
     </el-row>
-
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="explain" label="展示说明" width="180">
       </el-table-column>
@@ -31,22 +30,17 @@ export default {
     };
   },
   created() {
-    this.initData();
+    this.initData({ respid: this.activeResp });
   },
   computed: {
-    btnGroup() {
-      if (this.value) {
-        return this.$route.meta.authority.find(
-          e => e.responsibilityId === this.value
-        ).resource;
-      } else {
-        return [];
-      }
+    activeResp() {
+      let { menuId } = this.$route.meta;
+      return this.$store.state.permission.authorityMap[menuId];
     }
   },
   methods: {
-    async initData() {
-      let { data = [] } = await getResources();
+    async initData(query) {
+      let { data = [] } = await getResources(query);
       this.tableData = data;
     }
   },
