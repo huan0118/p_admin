@@ -109,47 +109,6 @@ const permissions = [
             ]
           }
         ]
-      },
-      {
-        levelId: 2,
-        menuId: 4002,
-        menuName: "权限管理 2-2",
-        menuParentId: 4000,
-        hidden: false,
-        authority: [
-          {
-            responsibilityName: "修改权限",
-            responsibilityId: 10,
-            resource: [
-              {
-                id: 1614006,
-                name: "修改",
-                type: "buttons"
-              }
-            ]
-          },
-          {
-            responsibilityName: "混合权限",
-            responsibilityId: 100,
-            resource: [
-              {
-                id: 1614005,
-                name: "新增",
-                type: "buttons"
-              },
-              {
-                id: 1614006,
-                name: "修改",
-                type: "buttons"
-              },
-              {
-                id: 1614007,
-                name: "导出",
-                type: "buttons"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
