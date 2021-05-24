@@ -1,6 +1,3 @@
 ## 前端细颗粒度权限探索（vue）
 
-    本项目权限设计:导航栏由后端返回数据生成，取服务配置树的叶子结点与前端路由树的叶子结点交集作为最终添加路由。职责数据注入路由中
-
-
-    
+基于[vue-element-admin]设计(https://github.com/PanJiaChen/vue-element-admin)
