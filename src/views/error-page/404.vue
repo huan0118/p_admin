@@ -46,7 +46,7 @@ export default {
   .cube-grid .cube {
     width: 33%;
     height: 33%;
-    background-color: #126e82;
+    background-color: #1b1b1b;
     float: left;
     display: flex;
     justify-content: center;
