@@ -94,8 +94,9 @@ const permissions = [
       {
         levelId: 2,
         menuId: 4001,
-        menuName: "权限管理 2-1",
+        menuName: "权限管理",
         menuParentId: 4000,
+        icon: "permissions",
         authority: [
           {
             responsibilityName: "新增权限",

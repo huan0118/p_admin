@@ -26,17 +26,17 @@ export default {
       }
     }
     return (
-      <el-button-group v-on:click={this.hanldeClick}>
+      <el-button-group>
         {controllBtn.map(e => (
-          <el-button type="primary">{e.name}</el-button>
+          <el-button v-on:click={() => this.hanldeClick(e)} type="primary">
+            {e.name}
+          </el-button>
         ))}
       </el-button-group>
     );
   },
   methods: {
-    hanldeClick() {
-      console.log("asd");
-    }
+    hanldeClick() {}
   }
 };
 </script>

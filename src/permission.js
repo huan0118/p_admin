@@ -16,7 +16,6 @@ router.beforeEach(async (to, from, next) => {
   // set page title
   document.title = getPageTitle(to.meta.title);
 
-  // 用token来标识用户是否登入
   const hasToken = getToken();
   if (hasToken) {
     if (to.path === "/login") {
@@ -30,11 +29,16 @@ router.beforeEach(async (to, from, next) => {
         // 设置默认权责对应关系
         const { menuId, authority = [] } = to.meta;
         if (menuId) {
-          if (!store.state.permission.authorityMap[menuId]) {
+          const cacheMenuId = store.state.permission.authorityMap[menuId];
+          if (!cacheMenuId) {
+            let currentRespId = authority[0].responsibilityId;
             store.commit("permission/SET_AUTHORITY_MAP", {
               key: menuId,
-              value: authority[0].responsibilityId
+              value: currentRespId
             });
+            to.meta.currentRespId = currentRespId;
+          } else {
+            to.meta.currentRespId = cacheMenuId;
           }
         }
         next();

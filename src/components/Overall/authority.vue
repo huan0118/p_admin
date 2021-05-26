@@ -46,6 +46,16 @@ export default {
               key: menuId,
               value: val
             });
+            let { name, fullPath } = this.$route;
+            this.$store
+              .dispatch("tagsView/delCachedView", { name })
+              .then(() => {
+                this.$nextTick(() => {
+                  this.$router.replace({
+                    path: "/redirect" + fullPath
+                  });
+                });
+              });
           }
         }
       },

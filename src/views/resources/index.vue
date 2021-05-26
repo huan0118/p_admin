@@ -8,14 +8,8 @@
         <p-controlled class="fr" />
       </el-col>
     </el-row>
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="explain" label="展示说明" width="180">
-      </el-table-column>
-      <el-table-column prop="type" label="类型" width="180"> </el-table-column>
-      <el-table-column prop="status" label="是否失效" width="120">
-      </el-table-column>
-      <el-table-column prop="des" label="功能描述"> </el-table-column>
-    </el-table>
+
+    <h3>This is an resources page</h3>
   </div>
 </template>
 
@@ -43,8 +37,7 @@ export default {
       let { data = [] } = await getResources(query);
       this.tableData = data;
     }
-  },
-  components: {}
+  }
 };
 </script>
 

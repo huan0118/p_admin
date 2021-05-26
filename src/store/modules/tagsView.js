@@ -9,7 +9,6 @@ const mutations = {
     let any = Object.assign({}, view, {
       title: view.meta.title || "no-name"
     });
-    // bug
     delete any.matched;
     state.visitedViews.push(any);
   },

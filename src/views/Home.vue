@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    {{ this.$route.meta.authority }}
+    <h3>当前路由元信息</h3>
+    {{ this.$route.meta }}
   </div>
 </template>
 
