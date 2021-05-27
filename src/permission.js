@@ -36,9 +36,15 @@ router.beforeEach(async (to, from, next) => {
               key: menuId,
               value: currentRespId
             });
-            to.meta.currentRespId = currentRespId;
+            Object.defineProperty(to.meta, "_currentRespId", {
+              writable: true,
+              value: currentRespId
+            });
           } else {
-            to.meta.currentRespId = cacheMenuId;
+            Object.defineProperty(to.meta, "_currentRespId", {
+              writable: true,
+              value: cacheMenuId
+            });
           }
         }
         next();

@@ -1,25 +1,8 @@
 <script>
 export default {
   name: "Authority",
-  data() {
-    return {
-      respId: ""
-    };
-  },
-  computed: {
-    authorityMap() {
-      return this.$store.state.permission.authorityMap;
-    }
-  },
   render(createElement) {
-    const { authority = [], menuId } = this.$route.meta;
-    let hasCache = this.authorityMap[menuId];
-    if (hasCache) {
-      let node = authority.find(e => e.responsibilityId === hasCache);
-      this.respId = node ? node.responsibilityId : "";
-    } else {
-      this.respId = authority.length ? authority[0].responsibilityId : "";
-    }
+    const { authority = [], menuId, _currentRespId } = this.$route.meta;
     //
     let vnode = authority.map((e, index) =>
       createElement("el-option", {
@@ -35,12 +18,9 @@ export default {
       "el-select",
       {
         props: {
-          value: this.respId
+          value: _currentRespId
         },
         on: {
-          input: event => {
-            this.respId = event;
-          },
           change: val => {
             this.$store.commit("permission/SET_AUTHORITY_MAP", {
               key: menuId,

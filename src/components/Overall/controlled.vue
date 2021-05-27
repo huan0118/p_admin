@@ -1,33 +1,13 @@
 <script>
 export default {
   name: "Controll",
-  data() {
-    return {
-      controllBtn: []
-    };
-  },
-  computed: {
-    authorityMap() {
-      return this.$store.state.permission.authorityMap;
-    }
-  },
   render() {
-    const { authority = [], menuId } = this.$route.meta;
-    let hasCache = this.authorityMap[menuId];
-    let controllBtn = [];
-    if (hasCache) {
-      let node = authority.find(e => e.responsibilityId === hasCache);
-      if (node) {
-        controllBtn = node.resource.filter(e => e.type === "buttons");
-      }
-    } else {
-      if (authority.length) {
-        controllBtn = authority[0].resource.filter(e => e.type === "buttons");
-      }
-    }
+    const { authority = [], _currentRespId } = this.$route.meta;
+    let data = authority.find(e => e.responsibilityId === _currentRespId);
+    let resource = data ? data.resource : [];
     return (
       <el-button-group>
-        {controllBtn.map(e => (
+        {resource.map(e => (
           <el-button v-on:click={() => this.hanldeClick(e)} type="primary">
             {e.name}
           </el-button>
