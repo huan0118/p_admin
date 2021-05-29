@@ -14,7 +14,8 @@ const permissions = [
           {
             id: 1614005,
             name: "新增",
-            type: "buttons"
+            type: "buttons",
+            code: "btnNew"
           }
         ]
       }
@@ -34,7 +35,8 @@ const permissions = [
               {
                 id: 1614005,
                 name: "新增",
-                type: "buttons"
+                type: "buttons",
+                code: "btnNew"
               }
             ]
           }
@@ -54,7 +56,8 @@ const permissions = [
               {
                 id: 1614006,
                 name: "修改",
-                type: "buttons"
+                type: "buttons",
+                code: "btnEdit"
               }
             ]
           },
@@ -65,17 +68,20 @@ const permissions = [
               {
                 id: 1614005,
                 name: "新增",
-                type: "buttons"
+                type: "buttons",
+                code: "btnNew"
               },
               {
                 id: 1614006,
                 name: "修改",
-                type: "buttons"
+                type: "buttons",
+                code: "btnEdit"
               },
               {
                 id: 1614007,
                 name: "导出",
-                type: "buttons"
+                type: "buttons",
+                code: "btnExport"
               }
             ]
           }
@@ -105,7 +111,8 @@ const permissions = [
               {
                 id: 1614005,
                 name: "新增",
-                type: "buttons"
+                type: "buttons",
+                code: "btnNew"
               }
             ]
           }
