@@ -54,9 +54,7 @@ const mutations = {
     { intersectionCollection, routesTreeMap, serveTreeMap }
   ) => {
     for (const menuId of intersectionCollection) {
-      routesTreeMap.get(menuId).meta.authority = serveTreeMap.get(
-        menuId
-      ).authority;
+      Object.assign(routesTreeMap.get(menuId).meta, serveTreeMap.get(menuId));
     }
   },
   CHANGE_INFO_STATE: (state, payload) => {
