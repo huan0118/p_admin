@@ -16,7 +16,9 @@ export default {
     );
   },
   methods: {
-    hanldeClick() {}
+    hanldeClick(row) {
+      this.$emit("btnControll", row);
+    }
   }
 };
 </script>

@@ -5,7 +5,7 @@
         <p-authority />
       </el-col>
       <el-col :span="12">
-        <p-controlled class="fr" />
+        <p-controlled class="fr" @btnControll="hanldeBtn" />
       </el-col>
     </el-row>
 
@@ -36,6 +36,16 @@ export default {
     async initData(query) {
       let { data = [] } = await getResources(query);
       this.tableData = data;
+    },
+    hanldeBtn(data) {
+      switch (data.code) {
+        case "btnNew":
+          this.$router.push({ name: "Creat" });
+          break;
+
+        default:
+          break;
+      }
     }
   }
 };

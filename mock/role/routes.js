@@ -86,6 +86,14 @@ const permissions = [
             ]
           }
         ]
+      },
+      {
+        levelId: 2,
+        menuId: 3003,
+        menuName: "新增",
+        menuParentId: 3000,
+        hidden: true,
+        authority: []
       }
     ]
   },

@@ -27,11 +27,16 @@ export default {
     };
   },
   methods: {
-    methods: {
-      onSubmit() {
-        console.log("submit!", this.form);
-      }
+    onSubmit() {
+      console.log("submit!", this.form);
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.creat {
+  background-color: #eee;
+  padding: 30px;
+}
+</style>
