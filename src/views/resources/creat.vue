@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "Resources",
+  name: "Creat",
   data() {
     return {
       form: {}

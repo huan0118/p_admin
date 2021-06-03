@@ -33,7 +33,7 @@ router.beforeEach(async (to, from, next) => {
           if (!cacheMenuId) {
             let currentRespId = authority.length
               ? authority[0].responsibilityId
-              : "authority 未配置";
+              : "empty";
             store.commit("permission/SET_AUTHORITY_MAP", {
               key: menuId,
               value: currentRespId
