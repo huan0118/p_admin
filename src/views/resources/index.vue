@@ -42,6 +42,9 @@ export default {
         case "btnNew":
           this.$router.push({ name: "Creat" });
           break;
+        case "btnEdit":
+          this.$router.push({ name: "Edit", params: { id: Date.now() } });
+          break;
 
         default:
           break;

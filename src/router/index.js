@@ -93,6 +93,17 @@ export const asyncRoutes = [
     component: () =>
       import(/* webpackChunkName: "Creat" */ "../views/resources/creat.vue")
   },
+
+  {
+    path: "/edit/:id",
+    name: "Edit",
+    meta: {
+      menuId: 3004,
+      title: "编辑"
+    },
+    component: () =>
+      import(/* webpackChunkName: "Edit" */ "../views/resources/edit.vue")
+  },
   {
     path: "about",
     name: "About",

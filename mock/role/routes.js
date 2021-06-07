@@ -94,6 +94,14 @@ const permissions = [
         menuParentId: 3000,
         hidden: true,
         authority: []
+      },
+      {
+        levelId: 2,
+        menuId: 3004,
+        menuName: "编辑",
+        menuParentId: 3000,
+        hidden: true,
+        authority: []
       }
     ]
   },
