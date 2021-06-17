@@ -32,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
           const cacheMenuId = store.state.permission.authorityMap[menuId];
           if (!cacheMenuId) {
             let currentRespId = authority.length
-              ? authority[0].responsibilityId
+              ? authority[0].jobsId
               : "empty";
             store.commit("permission/SET_AUTHORITY_MAP", {
               key: menuId,

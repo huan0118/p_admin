@@ -7,7 +7,7 @@ function rolesFilter(query, treeRoutes) {
   for (const iterator of treeRoutes) {
     if (iterator.authority) {
       for (const item of iterator.authority) {
-        if (item.responsibilityId === query.responsibilityId) {
+        if (item.jobsId === query.jobsId) {
           return item;
         }
       }

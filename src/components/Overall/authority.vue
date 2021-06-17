@@ -8,8 +8,8 @@ export default {
       createElement("el-option", {
         props: {
           key: index,
-          label: e.responsibilityName,
-          value: e.responsibilityId
+          label: e.jobsName,
+          value: e.jobsId
         }
       })
     );

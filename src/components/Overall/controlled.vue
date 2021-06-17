@@ -3,7 +3,7 @@ export default {
   name: "Controll",
   render() {
     const { authority = [], _currentRespId } = this.$route.meta;
-    let data = authority.find(e => e.responsibilityId === _currentRespId);
+    let data = authority.find(e => e.jobsId === _currentRespId);
     let resource = data ? data.resource : [];
     return (
       <el-button-group>

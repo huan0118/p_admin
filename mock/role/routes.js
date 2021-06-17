@@ -8,8 +8,8 @@ const permissions = [
     icon: "permissions",
     authority: [
       {
-        responsibilityName: "新增权限",
-        responsibilityId: 1,
+        jobsName: "新增权限",
+        jobsId: 1,
         resource: [
           {
             id: 1614005,
@@ -29,8 +29,8 @@ const permissions = [
         hidden: false,
         authority: [
           {
-            responsibilityName: "新增权限",
-            responsibilityId: 1,
+            jobsName: "新增权限",
+            jobsId: 1,
             resource: [
               {
                 id: 1614005,
@@ -50,8 +50,8 @@ const permissions = [
         hidden: false,
         authority: [
           {
-            responsibilityName: "修改权限",
-            responsibilityId: 10,
+            jobsName: "修改权限",
+            jobsId: 10,
             resource: [
               {
                 id: 1614006,
@@ -62,8 +62,8 @@ const permissions = [
             ]
           },
           {
-            responsibilityName: "混合权限",
-            responsibilityId: 100,
+            jobsName: "混合权限",
+            jobsId: 100,
             resource: [
               {
                 id: 1614005,
@@ -121,8 +121,8 @@ const permissions = [
         icon: "permissions",
         authority: [
           {
-            responsibilityName: "新增权限",
-            responsibilityId: 1,
+            jobsName: "新增权限",
+            jobsId: 1,
             resource: [
               {
                 id: 1614005,
