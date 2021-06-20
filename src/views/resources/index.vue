@@ -25,6 +25,7 @@ export default {
   },
   created() {
     this.initData({ respid: this.activeResp });
+    console.log(this.$route);
   },
   computed: {
     activeResp() {

@@ -8,6 +8,15 @@ import getPageTitle from "@/utils/get-page-title";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
+function def(obj, key, val, enumerable) {
+  Object.defineProperty(obj, key, {
+    value: val, //值
+    enumerable: !!enumerable, //定义了对象的属性是否可以在 for...in 循环和 Object.keys() 中被枚举。
+    writable: true, //可以 改写 value
+    configurable: true //configurable特性表示对象的属性是否可以被删除，以及除writable特性外的其他特性是否可以被修改。
+  });
+}
+
 const whiteList = ["/login"]; // 白名单
 
 router.beforeEach(async (to, from, next) => {
@@ -29,24 +38,18 @@ router.beforeEach(async (to, from, next) => {
         // 设置默认权责对应关系
         const { menuId, authority = [] } = to.meta;
         if (menuId) {
-          const cacheMenuId = store.state.permission.authorityMap[menuId];
-          if (!cacheMenuId) {
-            let currentRespId = authority.length
+          const cacheJobsId = store.state.permission.authorityMap[menuId];
+          if (!cacheJobsId) {
+            let currentJobsId = authority.length
               ? authority[0].jobsId
               : "empty";
             store.commit("permission/SET_AUTHORITY_MAP", {
               key: menuId,
-              value: currentRespId
+              value: currentJobsId
             });
-            Object.defineProperty(to.meta, "_currentRespId", {
-              writable: true,
-              value: currentRespId
-            });
+            def(to.meta, "_currentJobsId", currentJobsId);
           } else {
-            Object.defineProperty(to.meta, "_currentRespId", {
-              writable: true,
-              value: cacheMenuId
-            });
+            def(to.meta, "_currentJobsId", cacheJobsId);
           }
         }
         next();
