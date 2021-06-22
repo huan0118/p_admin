@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["Home"],{bb51:function(e,t,n){"use strict";n.r(t);var s=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{staticClass:"home"},[n("h3",[e._v("当前路由元信息")]),e._v(" "+e._s(this.$route.meta)+" ")])},a=[],o={name:"Home"},l=o,u=n("2877"),c=Object(u["a"])(l,s,a,!1,null,null,null);t["default"]=c.exports}}]);
