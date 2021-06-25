@@ -37,7 +37,7 @@ router.beforeEach(async (to, from, next) => {
       if (hasRoles) {
         // 设置默认权责对应关系
         const { menuId, authority = [] } = to.meta;
-        if (menuId) {
+        try {
           const cacheJobsId = store.state.permission.authorityMap[menuId];
           if (!cacheJobsId) {
             let currentJobsId = authority.length
@@ -51,8 +51,11 @@ router.beforeEach(async (to, from, next) => {
           } else {
             def(to.meta, "_currentJobsId", cacheJobsId);
           }
+        } catch (error) {
+          console.warn(error);
+        } finally {
+          next();
         }
-        next();
       } else {
         try {
           // 获取用户信息
