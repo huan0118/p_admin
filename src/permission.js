@@ -10,10 +10,10 @@ NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 function def(obj, key, val, enumerable) {
   Object.defineProperty(obj, key, {
-    value: val, //值
-    enumerable: !!enumerable, //定义了对象的属性是否可以在 for...in 循环和 Object.keys() 中被枚举。
-    writable: true, //可以 改写 value
-    configurable: true //configurable特性表示对象的属性是否可以被删除，以及除writable特性外的其他特性是否可以被修改。
+    value: val,
+    enumerable: !!enumerable,
+    writable: true,
+    configurable: true
   });
 }
 
