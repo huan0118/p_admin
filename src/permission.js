@@ -36,9 +36,13 @@ router.beforeEach(async (to, from, next) => {
       const hasRoles = store.getters.isSuccessGetInfo;
       if (hasRoles) {
         // 设置默认权责对应关系
-        const { menuId, authority = [] } = to.meta;
+        const { menuId, authority = [], defaultJobId } = to.meta;
         try {
-          const cacheJobsId = store.state.permission.authorityMap[menuId];
+          let defaultJob = authority.find(e => e.jobsId === defaultJobId);
+          const cacheJobsId = defaultJob
+            ? defaultJob.jobsId
+            : store.state.permission.authorityMap[menuId];
+
           if (!cacheJobsId) {
             let currentJobsId = authority.length
               ? authority[0].jobsId
