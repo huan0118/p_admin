@@ -2,7 +2,7 @@
 export default {
   name: "Authority",
   render(createElement) {
-    const { authority = [], menuId, _currentRespId } = this.$route.meta;
+    const { authority = [], menuId, _currentJobsId } = this.$route.meta;
     //
     let vnode = authority.map((e, index) =>
       createElement("el-option", {
@@ -18,7 +18,7 @@ export default {
       "el-select",
       {
         props: {
-          value: _currentRespId
+          value: _currentJobsId
         },
         on: {
           change: val => {

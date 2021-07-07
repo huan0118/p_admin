@@ -29,7 +29,7 @@ module.exports = [
       return {
         code: 20000,
         data: permissions,
-        info: { name: Mock.Random.cname() }
+        info: { name: Mock.Random.first() }
       };
     }
   },
