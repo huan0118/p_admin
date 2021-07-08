@@ -17,7 +17,7 @@ const port = process.env.port || process.env.npm_config_port || 9527; // dev por
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/dist" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/p_admin/dist" : "/",
   outputDir: "dist",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
