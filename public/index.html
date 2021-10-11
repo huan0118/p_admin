@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <script>
+      var _AU = _AU || {
+        spa:1,
+      };
+      (function () {
+        var au = document.createElement("script");
+        au.src = "http://127.0.0.1:5500/tsuat.js?c1c0e30e26ec498da5c7240a6c0c6592";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(au, s);
+      })();
+    </script>
   </head>
   <body>
     <noscript>
