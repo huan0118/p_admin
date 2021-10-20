@@ -7,14 +7,6 @@
 
 <script>
 export default {
-  name: "Home",
-  data() {
-    return {
-      x: 2
-    };
-  },
-  created() {
-    console.log(this._routerRoot === this);
-  }
+  name: "Home"
 };
 </script>
